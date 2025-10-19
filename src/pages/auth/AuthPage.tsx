@@ -54,18 +54,6 @@ const LogoContainer = styled(Box)`
   cursor: pointer;
 `;
 
-const BackButton = styled(Button)`
-  position: absolute;
-  top: 2rem;
-  left: 2rem;
-  color: ${brandColors.neutral[700]};
-  text-transform: none;
-  font-size: 14px;
-  
-  &:hover {
-    background: ${brandColors.neutral[50]};
-  }
-`;
 
 const StyledTextField = styled(TextField)`
   .MuiOutlinedInput-root {
@@ -231,14 +219,6 @@ const AuthPage: React.FC = () => {
 
   return (
     <AuthContainer maxWidth={false}>
-      <BackButton
-        startIcon={<ArrowBackIcon />}
-        onClick={handleBackClick}
-        variant="text"
-      >
-        Go Back
-      </BackButton>
-
       <AuthCard elevation={0}>
         <LogoContainer onClick={handleLogoClick}>
           <Box
