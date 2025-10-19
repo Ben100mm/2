@@ -2,7 +2,7 @@ from fastapi import APIRouter, Depends, HTTPException, Request, status
 from fastapi.security import HTTPBearer, HTTPAuthorizationCredentials
 from sqlalchemy.orm import Session
 from app.database import get_db
-from app.schemas.auth import UserRegister, UserLogin, TokenResponse, PasswordReset, PasswordResetConfirm, UserResponse
+from app.schemas.auth import UserRegister, UserLogin, TokenResponse, PasswordReset, PasswordResetConfirm, UserResponse, DeviceInfo
 from app.services.auth_service import AuthService
 from app.core.security import security_manager
 from app.utils.device_fingerprint import generate_device_fingerprint
@@ -43,11 +43,17 @@ async def register(user_data: UserRegister, request: Request, db: Session = Depe
         return TokenResponse(
             access_token=token,
             expires_in=24 * 60 * 60,  # 24 hours
+            session_id=session_id,
             user={
                 "id": user.id,
                 "email": user.email,
                 "full_name": user.full_name,
-                "role": user.role
+                "role": user.role,
+                "is_active": user.is_active,
+                "is_verified": user.is_verified,
+                "phone": user.phone,
+                "company": user.company,
+                "created_at": user.created_at.isoformat()
             }
         )
         
@@ -67,17 +73,8 @@ async def login(login_data: UserLogin, request: Request, db: Session = Depends(g
         if not user:
             raise HTTPException(status_code=401, detail="Invalid credentials")
         
-        # Check if user is locked
-        if user.locked_until and user.locked_until > datetime.utcnow():
-            raise HTTPException(
-                status_code=423, 
-                detail=f"Account locked until {user.locked_until}"
-            )
-        
-        # Generate device fingerprint
-        device_info_dict = generate_device_fingerprint(request)
-        from app.schemas.auth import DeviceInfo
-        device_info = DeviceInfo(**device_info_dict)
+        # Use provided device info from request
+        device_info = DeviceInfo(**login_data.device_info)
         
         # Create session
         token, session_id = auth_service.create_session(
@@ -89,17 +86,27 @@ async def login(login_data: UserLogin, request: Request, db: Session = Depends(g
         return TokenResponse(
             access_token=token,
             expires_in=24 * 60 * 60,  # 24 hours
+            session_id=session_id,
             user={
                 "id": user.id,
                 "email": user.email,
                 "full_name": user.full_name,
-                "role": user.role
+                "role": user.role,
+                "is_active": user.is_active,
+                "is_verified": user.is_verified,
+                "phone": user.phone,
+                "company": user.company,
+                "created_at": user.created_at.isoformat()
             }
         )
         
     except HTTPException:
         raise
     except Exception as e:
+        print(f"Login error: {str(e)}")
+        print(f"Error type: {type(e)}")
+        import traceback
+        traceback.print_exc()
         raise HTTPException(status_code=500, detail="Internal server error")
 
 @router.post("/logout")

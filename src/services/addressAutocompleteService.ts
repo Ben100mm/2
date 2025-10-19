@@ -269,7 +269,7 @@ class AddressAutocompleteService {
    */
   private getCachedResult(query: string): AddressSearchResult | null {
     const cached = this.cache.get(query);
-    if (cached && Date.now() - cached.timestamp < this.CACHE_DURATION) {
+    if (cached && cached.timestamp && Date.now() - cached.timestamp < this.CACHE_DURATION) {
       return cached;
     }
     
@@ -289,7 +289,7 @@ class AddressAutocompleteService {
     // Clean up old cache entries
     if (this.cache.size > 100) {
       const entries = Array.from(this.cache.entries());
-      entries.sort((a, b) => a[1].timestamp - b[1].timestamp);
+      entries.sort((a, b) => (a[1].timestamp || 0) - (b[1].timestamp || 0));
       
       // Remove oldest 20 entries
       for (let i = 0; i < 20 && i < entries.length; i++) {

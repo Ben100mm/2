@@ -90,10 +90,11 @@ export function extractMLFeaturesFromDealState(dealState: DealState): MLRiskFeat
 
   // Financing factors
   const financingRisk = dealState.riskFactors?.financingRisk || 5;
-  const hasBalloonPayment =
+  const hasBalloonPayment = Boolean(
     (dealState.offerType === 'Seller Finance' && dealState.hybrid?.balloonDue) ||
     (dealState.offerType === 'Hybrid' && dealState.hybrid?.balloonDue) ||
-    false;
+    false
+  );
   const isInterestOnly = dealState.loan?.interestOnly || false;
 
   // Economic factors (defaults - could be enriched from external data)

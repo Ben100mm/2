@@ -13,7 +13,7 @@ interface SceneManagerProps {
 
 export const SceneManager: React.FC<SceneManagerProps> = ({ onSectionChange }) => {
   const { camera } = useThree();
-  const scrollControllerRef = useRef<ScrollController>();
+  const scrollControllerRef = useRef<ScrollController | null>(null);
   const previousSectionRef = useRef<number>(0);
 
   useEffect(() => {

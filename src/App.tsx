@@ -11,7 +11,7 @@ import { theme } from "./theme";
 import Header from "./components/Header";
 import Hero from "./components/Hero";
 import Navigation from "./components/Navigation";
-import AuthPage from "./pages/AuthPage";
+import AuthPage from "./pages/auth/AuthPage";
 import ProfessionalSignupPage from "./pages/ProfessionalSignupPage";
 import BusinessSignupPage from "./pages/BusinessSignupPage";
 import BuyPage from "./pages/BuyPage";

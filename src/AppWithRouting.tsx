@@ -13,7 +13,7 @@ import { theme } from "./theme";
 import Header from './components/HeaderWithRouting';
 import Hero from './components/Hero';
 import Navigation from './components/Navigation';
-const AuthPage = lazy(() => import('./pages/AuthPage'));
+const AuthPage = lazy(() => import('./pages/auth/AuthPage'));
 const ProfessionalSignupPage = lazy(() => import('./pages/ProfessionalSignupPage'));
 const BusinessSignupPage = lazy(() => import('./pages/BusinessSignupPage'));
 const LuminaPage = lazy(() => import('./pages/LuminaPage'));

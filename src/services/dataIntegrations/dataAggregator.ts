@@ -40,12 +40,11 @@ export class DataAggregator {
     };
 
     // Initialize adapters
-    this.adapters = new Map([
-      [DataSource.ZILLOW, new ZillowAdapter()],
-      [DataSource.REALTOR, new RealtorAdapter()],
-      [DataSource.CENSUS, new CensusAdapter()],
-      [DataSource.MLS, new MLSAdapter()],
-    ]);
+    this.adapters = new Map();
+    this.adapters.set(DataSource.ZILLOW, new ZillowAdapter());
+    this.adapters.set(DataSource.REALTOR, new RealtorAdapter());
+    this.adapters.set(DataSource.CENSUS, new CensusAdapter());
+    this.adapters.set(DataSource.MLS, new MLSAdapter());
   }
 
   /**
@@ -80,9 +79,10 @@ export class DataAggregator {
     }
 
     // Check if we have minimum required sources
-    if (sourceData.size < this.config.minimumSources) {
+    const minSources = this.config?.minimumSources || 1;
+    if (sourceData.size < minSources) {
       throw new AggregationError(
-        `Failed to fetch from minimum required sources (${this.config.minimumSources})`,
+        `Failed to fetch from minimum required sources (${minSources})`,
         errors.map(e => e.source),
       );
     }

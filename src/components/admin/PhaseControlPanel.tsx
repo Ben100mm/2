@@ -29,7 +29,7 @@ export const PhaseControlPanel: React.FC = () => {
 
   const handlePhaseSwitch = (phaseId: number) => {
     const phase = phases.find(p => p.id === phaseId);
-    if (confirm(`Switch to ${phase?.name}?\n\n${phase?.description}`)) {
+    if (window.confirm(`Switch to ${phase?.name}?\n\n${phase?.description}`)) {
       switchToPhase(phaseId);
     }
   };
@@ -37,7 +37,7 @@ export const PhaseControlPanel: React.FC = () => {
   const handleRollback = () => {
     const previousPhase = Math.max(1, currentPhase - 1);
     const phase = phases.find(p => p.id === previousPhase);
-    if (confirm(`Rollback to ${phase?.name}?\n\n${phase?.description}`)) {
+    if (window.confirm(`Rollback to ${phase?.name}?\n\n${phase?.description}`)) {
       switchToPhase(previousPhase);
     }
   };

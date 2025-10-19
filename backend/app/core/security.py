@@ -18,6 +18,9 @@ class SecurityManager:
     
     def hash_password(self, password: str) -> str:
         """Hash password using bcrypt"""
+        # Truncate password to 72 bytes to avoid bcrypt limitation
+        if len(password.encode('utf-8')) > 72:
+            password = password.encode('utf-8')[:72].decode('utf-8', errors='ignore')
         return pwd_context.hash(password)
     
     def verify_password(self, plain_password: str, hashed_password: str) -> bool:

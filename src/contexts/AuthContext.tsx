@@ -163,14 +163,24 @@ export const AuthProvider: React.FC<AuthProviderProps> = ({ children }) => {
       }
 
       const data = await response.json();
+      console.log('AuthContext: Received login response:', data);
       
       // Store token and session info
       localStorage.setItem('access_token', data.access_token);
-      localStorage.setItem('session_id', data.session_id);
+      if (data.session_id) {
+        localStorage.setItem('session_id', data.session_id);
+      } else {
+        console.warn('AuthContext: No session_id in response');
+      }
       
       console.log('AuthContext: Setting currentUser to:', data.user);
       setCurrentUser(data.user);
-      await loadUserData(data.user);
+      
+      // Load user data in background, don't let it block authentication
+      loadUserData(data.user).catch(error => {
+        console.error('Failed to load user deals:', error);
+      });
+      
       console.log('AuthContext: Login completed, isAuthenticated should be true');
     } catch (error) {
       console.error('Login error:', error);

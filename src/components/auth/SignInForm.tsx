@@ -58,8 +58,16 @@ const SignInForm: React.FC<SignInFormProps> = ({ onSuccess }) => {
     setError(null);
 
     try {
+      console.log('SignInForm: Calling login...');
       await login(email, password);
-      onSuccess?.();
+      console.log('SignInForm: Login successful, calling onSuccess...');
+      console.log('SignInForm: onSuccess function:', onSuccess);
+      if (onSuccess) {
+        onSuccess();
+        console.log('SignInForm: onSuccess called successfully');
+      } else {
+        console.log('SignInForm: onSuccess is undefined');
+      }
     } catch (error: any) {
       setError(error.message || 'Invalid email or password');
     } finally {
