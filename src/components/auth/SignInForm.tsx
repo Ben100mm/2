@@ -60,8 +60,8 @@ const SignInForm: React.FC<SignInFormProps> = ({ onSuccess }) => {
     try {
       await login(email, password);
       onSuccess?.();
-    } catch (error) {
-      setError('Invalid email or password');
+    } catch (error: any) {
+      setError(error.message || 'Invalid email or password');
     } finally {
       setIsLoading(false);
     }

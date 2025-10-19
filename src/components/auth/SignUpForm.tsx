@@ -71,8 +71,8 @@ const SignUpForm: React.FC<SignUpFormProps> = ({ onSuccess }) => {
       const fullName = `${formData.firstName} ${formData.lastName}`;
       await signup(formData.email, formData.password, fullName);
       onSuccess?.();
-    } catch (error) {
-      setError('Signup failed. Please try again.');
+    } catch (error: any) {
+      setError(error.message || 'Signup failed. Please try again.');
     } finally {
       setIsLoading(false);
     }

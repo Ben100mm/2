@@ -268,7 +268,8 @@ const AuthPage: React.FC = () => {
                   {isSignUp ? "Sign in" : "Create account"}
                 </Link>
               </Typography>
-              {isSignUp && (
+              {/* Professional/Business signup text hidden in Phase 1 - will be available in Phase 3 */}
+              {/* {isSignUp && (
                 <Typography sx={{ color: brandColors.neutral[800], fontSize: "14px", mt: 1 }}>
                   I am a{" "}
                   <Link
@@ -303,7 +304,7 @@ const AuthPage: React.FC = () => {
                     Business
                   </Link>
                 </Typography>
-              )}
+              )} */}
             </Box>
 
             {/* Divider */}

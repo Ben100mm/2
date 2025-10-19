@@ -56,7 +56,7 @@ sudo -u postgres psql -c "GRANT ALL PRIVILEGES ON DATABASE dreamery_production T
 ### 3. Application Deployment
 ```bash
 # Clone repository
-git clone https://github.com/Ben100mm/Ben100mm-dreamery-operating-software.git
+git clone git@github.com:Ben100mm/2.git
 cd dreamery-homepage
 
 # Install dependencies

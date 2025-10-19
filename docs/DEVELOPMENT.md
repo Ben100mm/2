@@ -12,7 +12,7 @@
 ### Installation
 ```bash
 # Clone repository
-git clone https://github.com/Ben100mm/Ben100mm-dreamery-operating-software.git
+git clone git@github.com:Ben100mm/2.git
 cd dreamery-homepage
 
 # Install dependencies

@@ -6,7 +6,7 @@ A comprehensive, professional-grade real estate platform built with React, TypeS
 ## **Project Status: 100% COMPLETE**
 
 ### **Repository Information:**
-- **GitHub URL**: https://github.com/Ben100mm/Ben100mm-dreamery-operating-software.git
+- **GitHub URL**: git@github.com:Ben100mm/2.git
 - **Branch**: main
 - **Last Commit**: Complete with all 14 pages and full functionality
 - **Status**: Ready for production deployment
@@ -153,7 +153,7 @@ npm run build
 ```
 
 ### **GitHub Repository:**
-- **URL**: https://github.com/Ben100mm/Ben100mm-dreamery-operating-software.git
+- **URL**: git@github.com:Ben100mm/2.git
 - **Status**: All changes committed and pushed
 - **Branch**: main (up to date)
 

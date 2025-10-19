@@ -8,6 +8,7 @@ import { WorkspaceProvider } from './context/WorkspaceContext';
 import { ProfessionalSupportProvider } from './context/ProfessionalSupportContext';
 import { FeatureFlagProvider } from './context/FeatureFlagContext';
 import { RouteProtection } from './components/RouteProtection';
+import { AuthGuard } from './components/AuthGuard';
 import { theme } from "./theme";
 import Header from './components/HeaderWithRouting';
 import Hero from './components/Hero';
@@ -91,91 +92,255 @@ const AppContent = () => {
       <Route path="/professional-signup" element={<ProfessionalSignupPage />} />
       <Route path="/business-signup" element={<BusinessSignupPage />} />
       <Route path="/lumina" element={
-        <RouteProtection>
-          <LuminaPage />
-        </RouteProtection>
+        <AuthGuard>
+          <RouteProtection>
+            <LuminaPage />
+          </RouteProtection>
+        </AuthGuard>
       } />
       <Route path="/marketplace" element={
-        <RouteProtection>
-          <MarketplacePage />
-        </RouteProtection>
+        <AuthGuard>
+          <RouteProtection>
+            <MarketplacePage />
+          </RouteProtection>
+        </AuthGuard>
       }>
         <Route index element={<Navigate to="buy" replace />} />
         <Route path="buy" element={<BuyPage />} />
         <Route path="rent" element={<RentPage />} />
       </Route>
-      <Route path="/buy" element={<Navigate to="/marketplace/buy" replace />} />
-      <Route path="/rent" element={<Navigate to="/marketplace/rent" replace />} />
+      <Route path="/buy" element={
+        <AuthGuard>
+          <Navigate to="/marketplace/buy" replace />
+        </AuthGuard>
+      } />
+      <Route path="/rent" element={
+        <AuthGuard>
+          <Navigate to="/marketplace/rent" replace />
+        </AuthGuard>
+      } />
 
       <Route path="/mortgage" element={
-        <RouteProtection>
-          <MortgagePage />
-        </RouteProtection>
+        <AuthGuard>
+          <RouteProtection>
+            <MortgagePage />
+          </RouteProtection>
+        </AuthGuard>
       } />
-      <Route path="/pre-approval" element={<PreApprovalPage />} />
-      <Route path="/pre-approval-basic-info" element={<PreApprovalBasicInfoPage />} />
-      <Route path="/pre-approval-questions" element={<PreApprovalQuestionsPage />} />
-      <Route path="/pre-approval-home-preferences" element={<PreApprovalHomePreferencesPage />} />
-      <Route path="/pre-approval-financial" element={<PreApprovalFinancialPage />} />
-      <Route path="/pre-approval-property-financial" element={<PreApprovalPropertyFinancialPage />} />
-      <Route path="/pre-approval-additional-questions" element={<PreApprovalAdditionalQuestionsPage />} />
-      <Route path="/pre-approval-summary" element={<PreApprovalSummaryPage />} />
-      <Route path="/pre-approval-results" element={<PreApprovalResultsPage />} />
-      <Route path="/underwrite" element={<UnderwritePage />} />
+      <Route path="/pre-approval" element={
+        <AuthGuard>
+          <PreApprovalPage />
+        </AuthGuard>
+      } />
+      <Route path="/pre-approval-basic-info" element={
+        <AuthGuard>
+          <PreApprovalBasicInfoPage />
+        </AuthGuard>
+      } />
+      <Route path="/pre-approval-questions" element={
+        <AuthGuard>
+          <PreApprovalQuestionsPage />
+        </AuthGuard>
+      } />
+      <Route path="/pre-approval-home-preferences" element={
+        <AuthGuard>
+          <PreApprovalHomePreferencesPage />
+        </AuthGuard>
+      } />
+      <Route path="/pre-approval-financial" element={
+        <AuthGuard>
+          <PreApprovalFinancialPage />
+        </AuthGuard>
+      } />
+      <Route path="/pre-approval-property-financial" element={
+        <AuthGuard>
+          <PreApprovalPropertyFinancialPage />
+        </AuthGuard>
+      } />
+      <Route path="/pre-approval-additional-questions" element={
+        <AuthGuard>
+          <PreApprovalAdditionalQuestionsPage />
+        </AuthGuard>
+      } />
+      <Route path="/pre-approval-summary" element={
+        <AuthGuard>
+          <PreApprovalSummaryPage />
+        </AuthGuard>
+      } />
+      <Route path="/pre-approval-results" element={
+        <AuthGuard>
+          <PreApprovalResultsPage />
+        </AuthGuard>
+      } />
+      <Route path="/underwrite" element={
+        <AuthGuard>
+          <UnderwritePage />
+        </AuthGuard>
+      } />
       
       {/* New Workspaces Routes */}
       <Route path="/workspaces" element={
-        <RouteProtection>
-          <WorkspacesPage />
-        </RouteProtection>
+        <AuthGuard>
+          <RouteProtection>
+            <WorkspacesPage />
+          </RouteProtection>
+        </AuthGuard>
       } />
-      <Route path="/workspaces/personal" element={<WorkspacesPersonalPage />} />
-      <Route path="/workspaces/buyer" element={<Navigate to="/workspaces/personal" replace />} />
-      <Route path="/workspaces/agent" element={<WorkspacesAgentPage />} />
-      <Route path="/workspaces/brokerages" element={<WorkspacesBrokeragesPage />} />
-      <Route path="/workspaces/businesses" element={<WorkspacesBusinessesPage />} />
-      <Route path="/workspaces/professional-support" element={<WorkspacesProfessionalSupportPage />} />
-      <Route path="/workspaces/other" element={<OtherProfessionalPage />} />
+      <Route path="/workspaces/personal" element={
+        <AuthGuard>
+          <WorkspacesPersonalPage />
+        </AuthGuard>
+      } />
+      <Route path="/workspaces/buyer" element={
+        <AuthGuard>
+          <Navigate to="/workspaces/personal" replace />
+        </AuthGuard>
+      } />
+      <Route path="/workspaces/agent" element={
+        <AuthGuard>
+          <WorkspacesAgentPage />
+        </AuthGuard>
+      } />
+      <Route path="/workspaces/brokerages" element={
+        <AuthGuard>
+          <WorkspacesBrokeragesPage />
+        </AuthGuard>
+      } />
+      <Route path="/workspaces/businesses" element={
+        <AuthGuard>
+          <WorkspacesBusinessesPage />
+        </AuthGuard>
+      } />
+      <Route path="/workspaces/professional-support" element={
+        <AuthGuard>
+          <WorkspacesProfessionalSupportPage />
+        </AuthGuard>
+      } />
+      <Route path="/workspaces/other" element={
+        <AuthGuard>
+          <OtherProfessionalPage />
+        </AuthGuard>
+      } />
       
       {/* Redirects from old /close/* routes to new /workspaces/* routes */}
-      <Route path="/close" element={<Navigate to="/workspaces" replace />} />
-      <Route path="/close/buyer" element={<Navigate to="/workspaces/personal?workspace=close" replace />} />
-      <Route path="/close/personal" element={<Navigate to="/workspaces/personal?workspace=close" replace />} />
-      <Route path="/close/agent" element={<Navigate to="/workspaces/agent" replace />} />
-      <Route path="/close/brokerages" element={<Navigate to="/workspaces/brokerages" replace />} />
-      <Route path="/close/businesses" element={<Navigate to="/workspaces/businesses" replace />} />
-      <Route path="/close/professional-support" element={<Navigate to="/workspaces/professional-support" replace />} />
+      <Route path="/close" element={
+        <AuthGuard>
+          <Navigate to="/workspaces" replace />
+        </AuthGuard>
+      } />
+      <Route path="/close/buyer" element={
+        <AuthGuard>
+          <Navigate to="/workspaces/personal?workspace=close" replace />
+        </AuthGuard>
+      } />
+      <Route path="/close/personal" element={
+        <AuthGuard>
+          <Navigate to="/workspaces/personal?workspace=close" replace />
+        </AuthGuard>
+      } />
+      <Route path="/close/agent" element={
+        <AuthGuard>
+          <Navigate to="/workspaces/agent" replace />
+        </AuthGuard>
+      } />
+      <Route path="/close/brokerages" element={
+        <AuthGuard>
+          <Navigate to="/workspaces/brokerages" replace />
+        </AuthGuard>
+      } />
+      <Route path="/close/businesses" element={
+        <AuthGuard>
+          <Navigate to="/workspaces/businesses" replace />
+        </AuthGuard>
+      } />
+      <Route path="/close/professional-support" element={
+        <AuthGuard>
+          <Navigate to="/workspaces/professional-support" replace />
+        </AuthGuard>
+      } />
       
-      <Route path="/rent" element={<Navigate to="/workspaces/personal?workspace=rent" replace />} />
-      <Route path="/manage" element={<Navigate to="/workspaces/personal?workspace=manage" replace />} />
-      <Route path="/invest" element={<Navigate to="/workspaces/personal?workspace=invest" replace />} />
-      <Route path="/fund" element={<Navigate to="/workspaces/personal?workspace=fund" replace />} />
-      <Route path="/operate" element={<Navigate to="/workspaces/personal?workspace=operate" replace />} />
+      <Route path="/rent" element={
+        <AuthGuard>
+          <Navigate to="/workspaces/personal?workspace=rent" replace />
+        </AuthGuard>
+      } />
+      <Route path="/manage" element={
+        <AuthGuard>
+          <Navigate to="/workspaces/personal?workspace=manage" replace />
+        </AuthGuard>
+      } />
+      <Route path="/invest" element={
+        <AuthGuard>
+          <Navigate to="/workspaces/personal?workspace=invest" replace />
+        </AuthGuard>
+      } />
+      <Route path="/fund" element={
+        <AuthGuard>
+          <Navigate to="/workspaces/personal?workspace=fund" replace />
+        </AuthGuard>
+      } />
+      <Route path="/operate" element={
+        <AuthGuard>
+          <Navigate to="/workspaces/personal?workspace=operate" replace />
+        </AuthGuard>
+      } />
       <Route path="/learn" element={
-        <RouteProtection>
-          <LearnPage />
-        </RouteProtection>
+        <AuthGuard>
+          <RouteProtection>
+            <LearnPage />
+          </RouteProtection>
+        </AuthGuard>
       } />
       <Route path="/advertise" element={
-        <RouteProtection>
-          <AdvertisePage />
-        </RouteProtection>
+        <AuthGuard>
+          <RouteProtection>
+            <AdvertisePage />
+          </RouteProtection>
+        </AuthGuard>
       } />
-      <Route path="/advertise-3d" element={<Advertise3DPage />} />
+      <Route path="/advertise-3d" element={
+        <AuthGuard>
+          <Advertise3DPage />
+        </AuthGuard>
+      } />
       <Route path="/partner" element={
-        <RouteProtection>
-          <PartnerPage />
-        </RouteProtection>
+        <AuthGuard>
+          <RouteProtection>
+            <PartnerPage />
+          </RouteProtection>
+        </AuthGuard>
       } />
-      <Route path="/partner-profile" element={<PartnerProfileCompletionPage />} />
-      <Route path="/profile" element={<ProfilePage />} />
-      <Route path="/ux-demo" element={<UXDemoPage />} />
-      <Route path="/performance-dashboard" element={<PerformanceDashboardPage />} />
-      <Route path="/data-sources" element={<DataSourcesDashboard />} />
+      <Route path="/partner-profile" element={
+        <AuthGuard>
+          <PartnerProfileCompletionPage />
+        </AuthGuard>
+      } />
+      <Route path="/profile" element={
+        <AuthGuard>
+          <ProfilePage />
+        </AuthGuard>
+      } />
+      <Route path="/ux-demo" element={
+        <AuthGuard>
+          <UXDemoPage />
+        </AuthGuard>
+      } />
+      <Route path="/performance-dashboard" element={
+        <AuthGuard>
+          <PerformanceDashboardPage />
+        </AuthGuard>
+      } />
+      <Route path="/data-sources" element={
+        <AuthGuard>
+          <DataSourcesDashboard />
+        </AuthGuard>
+      } />
       <Route path="/developer" element={
-        <RouteProtection>
-          <DeveloperPage />
-        </RouteProtection>
+        <AuthGuard>
+          <RouteProtection>
+            <DeveloperPage />
+          </RouteProtection>
+        </AuthGuard>
       } />
     </Routes>
     </Suspense>
