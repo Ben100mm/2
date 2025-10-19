@@ -1,15 +1,17 @@
-# Dreamery - Real Estate Platform
+# DREAMERY - Real Estate Platform
+
+**DREAMERY - PRIVATE REPOSITORY**
 
 A comprehensive real estate platform with custom JWT authentication backend and anti-account-sharing measures.
 
 ## 🏗️ Architecture
 
 ### Frontend (React + TypeScript)
-- **React 18** with TypeScript
-- **Material-UI** for modern UI components
+- **React 18.2.0** with TypeScript 4.9.5
+- **Material-UI v5.15.10** for modern UI components
 - **Custom authentication** with device fingerprinting
 - **Property analysis tools** and workspace management
-- **Real-time data** and interactive maps
+- **Real-time data** and interactive maps with Apple Maps integration
 
 ### Backend (FastAPI + PostgreSQL)
 - **FastAPI** with async support
@@ -17,6 +19,11 @@ A comprehensive real estate platform with custom JWT authentication backend and 
 - **JWT authentication** with comprehensive security
 - **Anti-account-sharing** measures
 - **RESTful API** with Swagger documentation
+
+### Legacy Backend (Python Flask)
+- **Python Flask** - Original API server
+- **Prisma ORM** - Database toolkit
+- **PostgreSQL/SQLite** - Database
 
 ## 🚀 Quick Start
 
@@ -28,11 +35,11 @@ A comprehensive real estate platform with custom JWT authentication backend and 
 
 ### 1. Clone the Repository
 ```bash
-git clone <your-repo-url>
+git clone https://github.com/Ben100mm/2.git
 cd Ben100mm-DREAMERY
 ```
 
-### 2. Start the Backend
+### 2. Start the New JWT Backend (Recommended)
 ```bash
 cd backend
 ./start.sh
@@ -43,7 +50,14 @@ The backend will be available at:
 - **Docs:** http://localhost:8000/docs
 - **ReDoc:** http://localhost:8000/redoc
 
-### 3. Start the Frontend
+### 3. Start the Legacy Backend (Alternative)
+```bash
+cd server
+pip install -r requirements.txt
+python start_realtor_api.py  # Backend (port 5001)
+```
+
+### 4. Start the Frontend
 ```bash
 npm install
 npm start
@@ -89,15 +103,30 @@ The frontend will be available at http://localhost:7001
 - Property search and filtering
 - Data export capabilities
 
+### User Roles
+- **Buyer** - Individual homebuyers
+- **Buying Agent** - Agents representing buyers
+- **Listing Agent** - Agents representing sellers
+- **Broker** - Office-level oversight
+- **Brand Manager** - Multi-office management
+- **Enterprise** - Large brokerage operations
+
 ## 🛠️ Development
 
-### Backend Development
+### New JWT Backend Development
 ```bash
 cd backend
 python -m venv venv
 source venv/bin/activate  # On Windows: venv\Scripts\activate
 pip install -r requirements.txt
 uvicorn app.main:app --reload
+```
+
+### Legacy Backend Development
+```bash
+cd server
+pip install -r requirements.txt
+python start_realtor_api.py
 ```
 
 ### Frontend Development
@@ -108,7 +137,7 @@ npm start
 
 ### Running Tests
 ```bash
-# Backend tests
+# New backend tests
 cd backend
 pytest
 
@@ -120,7 +149,7 @@ npm test
 
 ### Full Stack Deployment
 ```bash
-# Backend
+# New JWT Backend
 cd backend
 docker-compose up -d
 
@@ -138,26 +167,27 @@ Copy `backend/env.example` to `backend/.env` and configure:
 
 ## 📚 API Documentation
 
-### Authentication Endpoints
+### New JWT Backend Endpoints
 - `POST /api/auth/register` - User registration
 - `POST /api/auth/login` - User login
 - `POST /api/auth/logout` - Logout
 - `GET /api/auth/me` - Current user info
-
-### Deal Management
 - `POST /api/deals/` - Create saved deal
 - `GET /api/deals/` - Get user's deals
 - `PUT /api/deals/{id}` - Update deal
 - `DELETE /api/deals/{id}` - Delete deal
-
-### Property Analysis
 - `POST /api/deals/analyses` - Create analysis
 - `GET /api/deals/analyses` - Get analyses
+
+### Legacy Backend Endpoints
+- Property scraping and analysis
+- Real estate data integration
+- Market analysis tools
 
 ## 🏢 Project Structure
 
 ```
-├── backend/                 # FastAPI backend
+├── backend/                 # New FastAPI backend
 │   ├── app/
 │   │   ├── api/            # API endpoints
 │   │   ├── core/           # Security and auth
@@ -168,18 +198,24 @@ Copy `backend/env.example` to `backend/.env` and configure:
 │   ├── tests/              # Test files
 │   ├── docker-compose.yml  # Docker setup
 │   └── requirements.txt    # Python dependencies
-├── src/                    # React frontend
-│   ├── components/         # React components
-│   ├── contexts/          # React contexts
-│   ├── pages/             # Page components
-│   ├── services/          # API services
-│   └── types/             # TypeScript types
-└── docs/                  # Documentation
+├── server/                 # Legacy Python Flask backend
+│   ├── core/              # Core functionality
+│   ├── tests/             # Test files
+│   └── requirements.txt   # Python dependencies
+├── src/                   # React frontend
+│   ├── components/        # React components
+│   ├── contexts/         # React contexts
+│   ├── pages/            # Page components
+│   ├── services/         # API services
+│   └── types/            # TypeScript types
+├── docs/                 # Documentation
+├── legal/                # Legal documents
+└── prisma/               # Database schema
 ```
 
 ## 🔧 Configuration
 
-### Backend Environment Variables
+### New Backend Environment Variables
 ```env
 DATABASE_URL=postgresql://user:password@localhost:5432/dreamery_db
 SECRET_KEY=your-super-secret-key
@@ -191,6 +227,7 @@ MAX_CONCURRENT_SESSIONS=3
 ### Frontend Environment Variables
 ```env
 REACT_APP_API_URL=http://localhost:8000
+REACT_APP_APPLE_MAPS_JWT_TOKEN=your_jwt_token
 ```
 
 ## 📈 Performance & Scalability
@@ -236,6 +273,25 @@ For support and questions:
 - Create an issue in the repository
 - Check the API documentation at `/docs`
 - Review the backend README in `backend/README.md`
+
+## Access and Usage Restrictions
+
+**AUTHORIZED PERSONNEL ONLY**
+
+This is a **PRIVATE, PROPRIETARY REPOSITORY** with restricted access. Unauthorized access is strictly prohibited and may result in legal action.
+
+### Authorized Access
+- Full-time employees of Dreamery Software LLC
+- Contractors with signed Non-Disclosure Agreements
+- Partners with explicit written authorization
+- Third-party developers with valid service agreements
+
+### Prohibited Activities
+- Copying, reproducing, or distributing any code
+- Reverse engineering or decompiling software
+- Creating competing products or services
+- Sharing code with unauthorized parties
+- Using proprietary information for personal gain
 
 ---
 

@@ -1,8 +1,13 @@
+# See https://help.github.com/articles/ignoring-files/ for more about ignoring files.
+
 # Dependencies
 node_modules/
 backend/venv/
 backend/__pycache__/
 backend/.pytest_cache/
+/node_modules
+/.pnp
+.pnp.js
 
 # Environment variables
 .env
@@ -10,12 +15,38 @@ backend/.pytest_cache/
 .env.development.local
 .env.test.local
 .env.production.local
+.env.secret
+.env.production
+.env.staging
 
 # Database
 *.db
 *.sqlite
 *.sqlite3
 backend/prisma/dev.db
+/src/generated/prisma
+
+# Testing
+/coverage
+coverage/
+*.lcov
+.nyc_output
+htmlcov/
+.tox/
+.coverage
+.coverage.*
+.cache
+nosetests.xml
+coverage.xml
+*.cover
+.hypothesis/
+.pytest_cache/
+
+# Production
+/build
+dist/
+*.tgz
+*.tar.gz
 
 # Logs
 logs
@@ -30,13 +61,6 @@ pids
 *.pid
 *.seed
 *.pid.lock
-
-# Coverage directory used by tools like istanbul
-coverage/
-*.lcov
-
-# nyc test coverage
-.nyc_output
 
 # Dependency directories
 jspm_packages/
@@ -135,18 +159,6 @@ MANIFEST
 pip-log.txt
 pip-delete-this-directory.txt
 
-# Unit test / coverage reports
-htmlcov/
-.tox/
-.coverage
-.coverage.*
-.cache
-nosetests.xml
-coverage.xml
-*.cover
-.hypothesis/
-.pytest_cache/
-
 # Translations
 *.mo
 *.pot
@@ -211,13 +223,119 @@ dmypy.json
 *.swp
 *.swo
 
-# Build outputs
-build/
-dist/
-*.tgz
-*.tar.gz
-
 # Backup files
 *.bak
 *.backup
 *.old
+
+# Proprietary and Confidential Information
+*.confidential
+*.proprietary
+*.secret
+*.private
+secrets/
+confidential/
+proprietary-data/
+legal/contracts/
+legal/agreements/
+legal/nda-signed/
+
+# Security and Legal
+*.key
+*.pem
+*.p12
+*.pfx
+certificates/
+keys/
+secrets/
+
+# Business Information
+business-plans/
+financial-data/
+customer-data/
+user-data/
+analytics/
+metrics/
+reports/
+
+# Development and Testing
+test-data/
+mock-data/
+sample-data/
+debug/
+logs/
+*.log
+
+# Proprietary and Confidential Files
+proprietary-data/
+confidential-data/
+internal-docs/
+business-plans/
+strategic-plans/
+financial-projections/
+customer-lists/
+vendor-lists/
+employee-data/
+hr-data/
+salary-data/
+performance-data/
+
+# Legal and Compliance
+legal/contracts/
+legal/agreements/
+legal/nda-signed/
+legal/employment-agreements/
+legal/vendor-agreements/
+legal/partnership-agreements/
+compliance-reports/
+audit-reports/
+regulatory-filings/
+
+# Security and Access Control
+access-logs/
+security-logs/
+authentication-logs/
+authorization-logs/
+failed-login-attempts/
+security-incidents/
+vulnerability-reports/
+penetration-test-results/
+
+# Intellectual Property
+patent-applications/
+trademark-filings/
+copyright-registrations/
+ip-portfolio/
+trade-secrets/
+proprietary-algorithms/
+competitive-intelligence/
+
+# Business Operations
+revenue-data/
+profit-loss/
+budget-data/
+forecasting-data/
+market-analysis/
+competitive-analysis/
+pricing-strategies/
+sales-data/
+customer-analytics/
+user-behavior-data/
+
+# Development Artifacts
+build-artifacts/
+deployment-configs/
+production-secrets/
+staging-secrets/
+development-secrets/
+ci-cd-secrets/
+docker-secrets/
+kubernetes-secrets/
+
+# Backup and Archive
+backups/
+archives/
+old-versions/
+deprecated-code/
+legacy-systems/
+migration-data/
