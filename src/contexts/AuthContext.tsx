@@ -104,7 +104,7 @@ export const AuthProvider: React.FC<AuthProviderProps> = ({ children }) => {
     const fingerprint = [
       navigator.userAgent,
       navigator.language,
-      screen.width + 'x' + screen.height,
+      window.screen.width + 'x' + window.screen.height,
       new Date().getTimezoneOffset(),
       navigator.platform,
       canvas.toDataURL(),
@@ -117,7 +117,7 @@ export const AuthProvider: React.FC<AuthProviderProps> = ({ children }) => {
       user_agent: navigator.userAgent,
       browser: getBrowserInfo(),
       os: getOSInfo(),
-      screen_resolution: `${screen.width}x${screen.height}`,
+      screen_resolution: `${window.screen.width}x${window.screen.height}`,
       timezone: Intl.DateTimeFormat().resolvedOptions().timeZone
     };
   };
@@ -168,8 +168,10 @@ export const AuthProvider: React.FC<AuthProviderProps> = ({ children }) => {
       localStorage.setItem('access_token', data.access_token);
       localStorage.setItem('session_id', data.session_id);
       
+      console.log('AuthContext: Setting currentUser to:', data.user);
       setCurrentUser(data.user);
-      await loadUserData();
+      await loadUserData(data.user);
+      console.log('AuthContext: Login completed, isAuthenticated should be true');
     } catch (error) {
       console.error('Login error:', error);
       throw error;
@@ -207,7 +209,7 @@ export const AuthProvider: React.FC<AuthProviderProps> = ({ children }) => {
       localStorage.setItem('session_id', data.session_id);
       
       setCurrentUser(data.user);
-      await loadUserData();
+      await loadUserData(data.user);
     } catch (error) {
       console.error('Signup error:', error);
       throw error;
@@ -237,8 +239,9 @@ export const AuthProvider: React.FC<AuthProviderProps> = ({ children }) => {
     }
   };
 
-  const loadUserData = async () => {
-    if (!currentUser) return;
+  const loadUserData = async (user?: any) => {
+    const userToLoad = user || currentUser;
+    if (!userToLoad) return;
     
     try {
       const token = localStorage.getItem('access_token');
