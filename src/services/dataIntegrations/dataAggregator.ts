@@ -19,6 +19,7 @@ import { ZillowAdapter } from './zillowAdapter';
 import { RealtorAdapter } from './realtorAdapter';
 import { CensusAdapter } from './censusAdapter';
 import { MLSAdapter } from './mlsAdapter';
+import { CountyAssessorAdapter } from './countyAssessorAdapter';
 import { MockProviders } from './mockProviders';
 
 export class DataAggregator {
@@ -29,10 +30,11 @@ export class DataAggregator {
     this.config = {
       strategy: config?.strategy || AggregationStrategy.PRIORITY,
       weights: config?.weights || new Map([
-        [DataSource.ZILLOW, 0.3],
-        [DataSource.REALTOR, 0.3],
-        [DataSource.MLS, 0.25],
+        [DataSource.ZILLOW, 0.25],
+        [DataSource.REALTOR, 0.25],
+        [DataSource.MLS, 0.20],
         [DataSource.CENSUS, 0.15],
+        [DataSource.COUNTY_ASSESSOR, 0.15],
       ]),
       minimumSources: config?.minimumSources || 1,
       requiredSources: config?.requiredSources || [],
@@ -45,6 +47,7 @@ export class DataAggregator {
     this.adapters.set(DataSource.REALTOR, new RealtorAdapter());
     this.adapters.set(DataSource.CENSUS, new CensusAdapter());
     this.adapters.set(DataSource.MLS, new MLSAdapter());
+    this.adapters.set(DataSource.COUNTY_ASSESSOR, new CountyAssessorAdapter());
   }
 
   /**

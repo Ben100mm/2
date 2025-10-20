@@ -9,6 +9,7 @@ import {
   RealtorEconomicData,
   CensusData,
   MLSData,
+  CountyAssessorData,
   DataSource,
 } from './types';
 
@@ -354,9 +355,193 @@ export function generateMockStandardData(zipCode: string): StandardMarketData {
   };
 }
 
-// ============================================================================
-// Export All Generators
-// ============================================================================
+/**
+ * Generate mock County Assessor data
+ */
+export function generateMockCountyAssessorData(zipCode: string): CountyAssessorData {
+  const seed = zipToSeed(zipCode);
+  
+  const assessedValue = Math.round(seededRandom(seed + 400, 200000, 1200000));
+  const landValue = Math.round(assessedValue * seededRandom(seed + 401, 0.2, 0.4));
+  const improvementValue = assessedValue - landValue;
+  
+  return {
+    apn: `${zipCode}-${Math.floor(seededRandom(seed + 402, 1000, 9999))}`,
+    parcelId: `PARCEL-${zipCode}-${Math.floor(seededRandom(seed + 403, 100, 999))}`,
+    legalDescription: `Lot ${Math.floor(seededRandom(seed + 404, 1, 50))}, Block ${Math.floor(seededRandom(seed + 405, 1, 20))}`,
+    
+    currentOwner: `Owner ${Math.floor(seededRandom(seed + 406, 1, 1000))}`,
+    mailingAddress: `${Math.floor(seededRandom(seed + 407, 100, 9999))} Main St`,
+    ownershipType: seededRandom(seed + 408, 0, 1) > 0.8 ? 'Corporation' : 'Individual',
+    
+    landUse: seededRandom(seed + 409, 0, 1) > 0.9 ? 'Commercial' : 'Residential',
+    zoning: seededRandom(seed + 410, 0, 1) > 0.7 ? 'R-1' : 'R-2',
+    lotSize: Math.round(seededRandom(seed + 411, 5000, 15000)),
+    yearBuilt: Math.round(seededRandom(seed + 412, 1950, 2020)),
+    bedrooms: Math.round(seededRandom(seed + 413, 2, 5)),
+    bathrooms: Math.round(seededRandom(seed + 414, 1, 4)),
+    squareFeet: Math.round(seededRandom(seed + 415, 1200, 3500)),
+    
+    assessedValue,
+    landValue,
+    improvementValue,
+    assessmentYear: new Date().getFullYear(),
+    
+    annualTaxAmount: Math.round(assessedValue * seededRandom(seed + 416, 0.008, 0.025)),
+    taxDelinquent: seededRandom(seed + 417, 0, 1) > 0.95,
+    taxLienAmount: seededRandom(seed + 418, 0, 1) > 0.98 ? Math.round(seededRandom(seed + 419, 1000, 10000)) : 0,
+    taxExemptions: seededRandom(seed + 420, 0, 1) > 0.8 ? ['Homestead'] : [],
+    
+    salesHistory: generateMockSalesHistory(seed + 421),
+    permits: generateMockPermits(seed + 422),
+    violations: generateMockViolations(seed + 423),
+  };
+}
+
+/**
+ * Generate mock sales history
+ */
+function generateMockSalesHistory(seed: number): Array<{
+  saleDate: string;
+  salePrice: number;
+  saleType: string;
+  buyer: string;
+  seller: string;
+}> {
+  const salesCount = Math.floor(seededRandom(seed, 1, 4));
+  const sales = [];
+  
+  for (let i = 0; i < salesCount; i++) {
+    const saleDate = new Date();
+    saleDate.setFullYear(saleDate.getFullYear() - Math.floor(seededRandom(seed + i, 1, 10)));
+    saleDate.setMonth(Math.floor(seededRandom(seed + i + 1, 0, 11)));
+    
+    sales.push({
+      saleDate: saleDate.toISOString().split('T')[0],
+      salePrice: Math.round(seededRandom(seed + i + 2, 150000, 800000)),
+      saleType: seededRandom(seed + i + 3, 0, 1) > 0.9 ? 'Non-Arm\'s Length' : 'Arm\'s Length',
+      buyer: `Buyer ${Math.floor(seededRandom(seed + i + 4, 1, 1000))}`,
+      seller: `Seller ${Math.floor(seededRandom(seed + i + 5, 1, 1000))}`,
+    });
+  }
+  
+  return sales.sort((a, b) => new Date(a.saleDate).getTime() - new Date(b.saleDate).getTime());
+}
+
+/**
+ * Generate mock permits
+ */
+function generateMockPermits(seed: number): Array<{
+  permitNumber: string;
+  type: string;
+  issueDate: string;
+  status: string;
+  description: string;
+}> {
+  const permitCount = Math.floor(seededRandom(seed, 0, 3));
+  const permits = [];
+  
+  const permitTypes = ['Building', 'Electrical', 'Plumbing', 'HVAC', 'Roofing'];
+  
+  for (let i = 0; i < permitCount; i++) {
+    const issueDate = new Date();
+    issueDate.setFullYear(issueDate.getFullYear() - Math.floor(seededRandom(seed + i, 0, 5)));
+    issueDate.setMonth(Math.floor(seededRandom(seed + i + 1, 0, 11)));
+    
+    permits.push({
+      permitNumber: `PERMIT-${Math.floor(seededRandom(seed + i + 2, 1000, 9999))}`,
+      type: permitTypes[Math.floor(seededRandom(seed + i + 3, 0, permitTypes.length))],
+      issueDate: issueDate.toISOString().split('T')[0],
+      status: seededRandom(seed + i + 4, 0, 1) > 0.8 ? 'Closed' : 'Open',
+      description: `${permitTypes[Math.floor(seededRandom(seed + i + 5, 0, permitTypes.length))]} work`,
+    });
+  }
+  
+  return permits;
+}
+
+/**
+ * Generate mock violations
+ */
+function generateMockViolations(seed: number): Array<{
+  violationType: string;
+  date: string;
+  status: string;
+  fine: number;
+  description: string;
+}> {
+  const violationCount = Math.floor(seededRandom(seed, 0, 2));
+  const violations = [];
+  
+  const violationTypes = ['Code Violation', 'Safety Violation', 'Environmental Violation'];
+  
+  for (let i = 0; i < violationCount; i++) {
+    const violationDate = new Date();
+    violationDate.setFullYear(violationDate.getFullYear() - Math.floor(seededRandom(seed + i, 0, 3)));
+    violationDate.setMonth(Math.floor(seededRandom(seed + i + 1, 0, 11)));
+    
+    violations.push({
+      violationType: violationTypes[Math.floor(seededRandom(seed + i + 2, 0, violationTypes.length))],
+      date: violationDate.toISOString().split('T')[0],
+      status: seededRandom(seed + i + 3, 0, 1) > 0.7 ? 'Resolved' : 'Open',
+      fine: Math.round(seededRandom(seed + i + 4, 100, 2000)),
+      description: `Violation description ${i + 1}`,
+    });
+  }
+  
+  return violations;
+}
+
+/**
+ * Convert County Assessor data to standard format
+ */
+export function countyAssessorToStandard(
+  county: CountyAssessorData,
+  zipCode: string,
+): StandardMarketData {
+  const seed = zipToSeed(zipCode);
+  
+  // Calculate appreciation rate from sales history
+  let appreciationRate = 0;
+  if (county.salesHistory.length >= 2) {
+    const sortedSales = county.salesHistory.sort((a, b) => 
+      new Date(a.saleDate).getTime() - new Date(b.saleDate).getTime()
+    );
+    const oldestSale = sortedSales[0];
+    const newestSale = sortedSales[sortedSales.length - 1];
+    
+    const yearsDiff = (new Date(newestSale.saleDate).getTime() - 
+                      new Date(oldestSale.saleDate).getTime()) / (1000 * 60 * 60 * 24 * 365);
+    
+    if (yearsDiff > 0) {
+      appreciationRate = ((newestSale.salePrice - oldestSale.salePrice) / 
+                         oldestSale.salePrice) / yearsDiff * 100;
+    }
+  }
+  
+  return {
+    zipCode,
+    city: 'Unknown',
+    state: 'Unknown',
+    
+    medianRent: 0, // Not available from county data
+    medianPrice: county.assessedValue,
+    rentGrowth12mo: seededRandom(seed + 450, -2, 8),
+    appreciationRate12mo: appreciationRate,
+    
+    vacancyRate: 0, // Not available
+    daysOnMarket: seededRandom(seed + 451, 15, 90),
+    foreclosureRate: county.taxDelinquent ? 1 : seededRandom(seed + 452, 0.5, 3),
+    
+    economicDiversityIndex: seededRandom(seed + 453, 50, 90),
+    crimeSafetyScore: seededRandom(seed + 454, 60, 95),
+    schoolRating: seededRandom(seed + 455, 5, 10),
+    
+    dateUpdated: new Date(),
+    dataSource: DataSource.COUNTY_ASSESSOR,
+    confidence: 90, // County data is reliable
+  };
+}
 
 export const MockProviders = {
   // Raw data generators
@@ -364,12 +549,14 @@ export const MockProviders = {
   realtor: generateMockRealtorData,
   census: generateMockCensusData,
   mls: generateMockMLSData,
+  countyAssessor: generateMockCountyAssessorData,
   
   // Converters to standard format
   zillowToStandard,
   realtorToStandard,
   censusToStandard,
   mlsToStandard,
+  countyAssessorToStandard,
   
   // Direct standard data
   standard: generateMockStandardData,

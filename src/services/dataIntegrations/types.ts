@@ -44,6 +44,7 @@ export enum DataSource {
   REALTOR = 'realtor',
   CENSUS = 'census',
   MLS = 'mls',
+  COUNTY_ASSESSOR = 'county_assessor',
   MOCK = 'mock',
   AGGREGATED = 'aggregated',
 }
@@ -219,7 +220,68 @@ export interface CensusData {
 }
 
 // ============================================================================
-// MLS-Specific Types
+// County Assessor-Specific Types
+// ============================================================================
+
+export interface CountyAssessorData {
+  // Property Identification
+  apn: string; // Assessor's Parcel Number
+  parcelId: string;
+  legalDescription: string;
+  
+  // Ownership Information
+  currentOwner: string;
+  mailingAddress: string;
+  ownershipType: string; // Individual, Corporation, Trust, etc.
+  
+  // Property Details
+  landUse: string;
+  zoning: string;
+  lotSize: number; // in square feet
+  yearBuilt: number;
+  bedrooms: number;
+  bathrooms: number;
+  squareFeet: number;
+  
+  // Assessment Data
+  assessedValue: number;
+  landValue: number;
+  improvementValue: number;
+  assessmentYear: number;
+  
+  // Tax Information
+  annualTaxAmount: number;
+  taxDelinquent: boolean;
+  taxLienAmount: number;
+  taxExemptions: string[];
+  
+  // Sales History
+  salesHistory: Array<{
+    saleDate: string;
+    salePrice: number;
+    saleType: string; // Arm's Length, Non-Arm's Length
+    buyer: string;
+    seller: string;
+  }>;
+  
+  // Permits and Violations
+  permits: Array<{
+    permitNumber: string;
+    type: string;
+    issueDate: string;
+    status: string;
+    description: string;
+  }>;
+  
+  violations: Array<{
+    violationType: string;
+    date: string;
+    status: string;
+    fine: number;
+    description: string;
+  }>;
+}
+
 // ============================================================================
 
 export interface MLSData {
