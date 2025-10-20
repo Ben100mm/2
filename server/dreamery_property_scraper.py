@@ -478,7 +478,7 @@ class DreameryPropertyScraper:
             total_properties = response_json["data"][search_key]["total"]
             
             # Limit results
-            properties_list = properties_list[:limit]
+            properties_list = properties_List[:limit]
             
             # Format properties for Dreamery
             formatted_properties = []
