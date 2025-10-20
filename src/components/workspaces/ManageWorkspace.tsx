@@ -30,7 +30,7 @@ import {
   IconButton,
   Tooltip,
 } from '@mui/material';
-import { Grid } from '../GridCompat';
+import { Grid } from '@mui/material';
 import EditIcon from '@mui/icons-material/Edit';
 import { brandColors } from '../../theme';
 import ManageDashboard from '../manage/ManageDashboard';

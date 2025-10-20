@@ -129,7 +129,7 @@ export const StressTestingTab: React.FC<StressTestingTabProps> = ({
           summary: getStressTestSummary(stressTestResults),
         });
       }
-    } catch (err: unknown) {
+    } catch (err: any) {
       const errorMessage = err instanceof Error ? err.message : 'Failed to calculate stress tests';
       setError(errorMessage);
       console.error('Stress test calculation error:', err);
@@ -153,7 +153,7 @@ export const StressTestingTab: React.FC<StressTestingTabProps> = ({
           const stressTestResults = runStressTests(dealState);
           setResults(stressTestResults);
           setError(null);
-        } catch (err: unknown) {
+        } catch (err: any) {
           setError(err instanceof Error ? err.message : 'Failed to recalculate');
         } finally {
           setIsLoading(false);

@@ -460,9 +460,8 @@ export const RiskAnalysisTab: React.FC<RiskAnalysisTabProps> = ({
                       height={300}
                       slotProps={{
                         legend: {
-                          direction: 'column' as const,
+                          direction: 'row' as any,
                           position: { vertical: 'middle', horizontal: 'end' },
-                          padding: 0,
                         },
                       }}
                     />
