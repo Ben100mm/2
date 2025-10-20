@@ -161,8 +161,22 @@ export const AuthProvider: React.FC<AuthProviderProps> = ({ children }) => {
       });
 
       if (!response.ok) {
-        const errorData = await response.json();
-        throw new Error(errorData.detail || 'Login failed');
+        let errorMessage = 'Login failed';
+        try {
+          const errorData = await response.json();
+          if (errorData.detail) {
+            // Handle validation errors array
+            if (Array.isArray(errorData.detail)) {
+              errorMessage = errorData.detail.map((err: any) => err.msg || err).join('. ');
+            } else {
+              errorMessage = errorData.detail;
+            }
+          }
+        } catch (parseError) {
+          console.error('Failed to parse error response:', parseError);
+          errorMessage = `Login failed (${response.status})`;
+        }
+        throw new Error(errorMessage);
       }
 
       const data = await response.json();
@@ -211,8 +225,22 @@ export const AuthProvider: React.FC<AuthProviderProps> = ({ children }) => {
       });
 
       if (!response.ok) {
-        const errorData = await response.json();
-        throw new Error(errorData.detail || 'Registration failed');
+        let errorMessage = 'Registration failed';
+        try {
+          const errorData = await response.json();
+          if (errorData.detail) {
+            // Handle validation errors array
+            if (Array.isArray(errorData.detail)) {
+              errorMessage = errorData.detail.map((err: any) => err.msg || err).join('. ');
+            } else {
+              errorMessage = errorData.detail;
+            }
+          }
+        } catch (parseError) {
+          console.error('Failed to parse error response:', parseError);
+          errorMessage = `Registration failed (${response.status})`;
+        }
+        throw new Error(errorMessage);
       }
 
       const data = await response.json();

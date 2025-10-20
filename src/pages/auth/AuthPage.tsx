@@ -202,6 +202,10 @@ const AuthPage: React.FC = () => {
   const [isLoading, setIsLoading] = useState(false);
   const [error, setError] = useState('');
   const [isSignUp, setIsSignUp] = useState(false);
+  const [passwordStrength, setPasswordStrength] = useState({
+    score: 0,
+    feedback: [] as string[]
+  });
 
   // Redirect to homepage if already authenticated
   React.useEffect(() => {
@@ -229,6 +233,54 @@ const AuthPage: React.FC = () => {
     return phoneRegex.test(cleanInput) && cleanInput.length >= 10;
   };
 
+  const validatePassword = (password: string): string[] => {
+    const errors: string[] = [];
+    
+    if (password.length < 8) {
+      errors.push('Password must be at least 8 characters long');
+    }
+    if (!/[A-Z]/.test(password)) {
+      errors.push('Password must contain at least one uppercase letter');
+    }
+    if (!/[a-z]/.test(password)) {
+      errors.push('Password must contain at least one lowercase letter');
+    }
+    if (!/\d/.test(password)) {
+      errors.push('Password must contain at least one digit');
+    }
+    
+    return errors;
+  };
+
+  const calculatePasswordStrength = (password: string) => {
+    let score = 0;
+    const feedback: string[] = [];
+    
+    if (password.length >= 8) score += 1;
+    else feedback.push('At least 8 characters');
+    
+    if (/[A-Z]/.test(password)) score += 1;
+    else feedback.push('Uppercase letter');
+    
+    if (/[a-z]/.test(password)) score += 1;
+    else feedback.push('Lowercase letter');
+    
+    if (/\d/.test(password)) score += 1;
+    else feedback.push('Number');
+    
+    if (/[^A-Za-z0-9]/.test(password)) score += 1;
+    
+    setPasswordStrength({ score, feedback });
+  };
+
+  const handlePasswordChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const newPassword = e.target.value;
+    setPassword(newPassword);
+    if (isSignUp) {
+      calculatePasswordStrength(newPassword);
+    }
+  };
+
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     setIsLoading(true);
@@ -236,12 +288,21 @@ const AuthPage: React.FC = () => {
 
     try {
       if (isSignUp) {
+        // Validate password requirements
+        const passwordErrors = validatePassword(password);
+        if (passwordErrors.length > 0) {
+          setError(passwordErrors.join('. '));
+          setIsLoading(false);
+          return;
+        }
+        
         // Validate password confirmation
         if (password !== confirmPassword) {
           setError('Passwords do not match');
           setIsLoading(false);
           return;
         }
+        
         await signup(email, password, fullName, phone);
         window.location.href = '/';
       } else {
@@ -255,6 +316,7 @@ const AuthPage: React.FC = () => {
         window.location.href = '/';
       }
     } catch (error: any) {
+      console.error('Auth error:', error);
       setError(error.message || (isSignUp ? 'Registration failed' : 'Invalid email/phone or password'));
     } finally {
       setIsLoading(false);
@@ -312,6 +374,7 @@ const AuthPage: React.FC = () => {
               value={fullName}
               onChange={(e) => setFullName(e.target.value)}
               required
+              autoComplete="name"
               sx={{ mb: 1.5 }}
               InputProps={{
                 startAdornment: (
@@ -331,6 +394,7 @@ const AuthPage: React.FC = () => {
             value={email}
             onChange={(e) => setEmail(e.target.value)}
             required
+            autoComplete="email"
             sx={{ mb: 1.5 }}
             InputProps={{
               startAdornment: (
@@ -365,9 +429,10 @@ const AuthPage: React.FC = () => {
             label="Password*"
             type={showPassword ? 'text' : 'password'}
             value={password}
-            onChange={(e) => setPassword(e.target.value)}
+            onChange={handlePasswordChange}
             required
-            sx={{ mb: 2 }}
+            autoComplete="new-password"
+            sx={{ mb: 1 }}
             InputProps={{
               startAdornment: (
                 <InputAdornment position="start">
@@ -387,6 +452,19 @@ const AuthPage: React.FC = () => {
               ),
             }}
           />
+          
+          {isSignUp && password && (
+            <Box sx={{ mb: 2 }}>
+              <Typography variant="caption" sx={{ color: brandColors.neutral[600], fontSize: '12px' }}>
+                Password strength: {passwordStrength.score}/5
+              </Typography>
+              {passwordStrength.feedback.length > 0 && (
+                <Typography variant="caption" sx={{ color: brandColors.neutral[500], fontSize: '11px', display: 'block', mt: 0.5 }}>
+                  Missing: {passwordStrength.feedback.join(', ')}
+                </Typography>
+              )}
+            </Box>
+          )}
 
           {isSignUp && (
             <StyledTextField
@@ -396,6 +474,7 @@ const AuthPage: React.FC = () => {
               value={confirmPassword}
               onChange={(e) => setConfirmPassword(e.target.value)}
               required
+              autoComplete="new-password"
               sx={{ mb: 2 }}
               InputProps={{
                 startAdornment: (
