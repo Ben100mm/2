@@ -20,6 +20,15 @@ const Header: React.FC = () => {
   const [userMenuOpen, setUserMenuOpen] = useState(false);
   const [anchorEl, setAnchorEl] = useState<null | HTMLElement>(null);
 
+  // Debug authentication state
+  React.useEffect(() => {
+    console.log('HeaderWithRouting: Authentication state changed:', { 
+      isAuthenticated, 
+      currentUser,
+      hasToken: !!localStorage.getItem('access_token')
+    });
+  }, [isAuthenticated, currentUser]);
+
   const handleAuthClick = () => {
     navigate("/auth");
   };
@@ -37,8 +46,16 @@ const Header: React.FC = () => {
   const handleProfileClick = () => {
     console.log('Profile clicked, navigating to /profile');
     console.log('Authentication status:', { isAuthenticated, currentUser });
-    handleUserMenuClose();
-    navigate('/profile');
+    console.log('Current location:', window.location.href);
+    
+    try {
+      handleUserMenuClose();
+      console.log('About to call navigate("/profile")');
+      navigate('/profile');
+      console.log('Navigate call completed');
+    } catch (error) {
+      console.error('Error during profile navigation:', error);
+    }
   };
 
   const handleNotificationsClick = () => {
@@ -79,6 +96,7 @@ const Header: React.FC = () => {
         }}
       >
         {isAuthenticated ? (
+          console.log('Rendering authenticated user menu') ||
           <Box
             sx={{
               position: "absolute",
