@@ -116,7 +116,7 @@ class Address(BaseModel):
 
 class Description(BaseModel):
     primary_photo: Union[HttpUrl, None] = None
-    alt_photos: List[HttpUrl] | None = None
+    alt_photos: Union[List[HttpUrl], None] = None
     style: Union[PropertyType, None] = None
     beds: Union[int, None] = Field(None, description="Total number of bedrooms")
     baths_full: Union[int, None] = Field(None, description="Total number of full bathrooms (4 parts: Sink, Shower, Bathtub and Toilet)")
@@ -149,7 +149,7 @@ class Entity(BaseModel):
 class Agent(Entity):
     mls_set: Union[str, None] = None
     nrds_id: Union[str, None] = None
-    phones: List[dict] | Union[AgentPhone, None] = None
+    phones: Union[List[dict], AgentPhone, None] = None
     email: Union[str, None] = None
     href: Union[str, None] = None
     state_license: Union[str, None] = Field(None, description="Advertiser agent state license number")
@@ -159,7 +159,7 @@ class Office(Entity):
     mls_set: Union[str, None] = None
     email: Union[str, None] = None
     href: Union[str, None] = None
-    phones: List[dict] | Union[AgentPhone, None] = None
+    phones: Union[List[dict], AgentPhone, None] = None
 
 
 class Broker(Entity):
@@ -204,7 +204,7 @@ class Property(BaseModel):
     days_on_mls: Union[int, None] = Field(None, description="An integer value determined by the MLS to calculate days on market")
     description: Union[Description, None] = None
     tags: Union[List[str], None] = None
-    details: List[HomeDetails] | None = None
+    details: Union[List[HomeDetails], None] = None
 
     latitude: Union[float, None] = None
     longitude: Union[float, None] = None
@@ -215,7 +215,7 @@ class Property(BaseModel):
     assessed_value: Union[int, None] = None
     estimated_value: Union[int, None] = None
     tax: Union[int, None] = None
-    tax_history: List[TaxHistory] | None = None
+    tax_history: Union[List[TaxHistory], None] = None
 
     advertisers: Union[Advertisers, None] = None
     
@@ -224,17 +224,17 @@ class Property(BaseModel):
     last_sold_price: Union[int, None] = None
     
     # Structured data from GraphQL
-    open_houses: List[OpenHouse] | None = None
+    open_houses: Union[List[OpenHouse], None] = None
     pet_policy: Union[PetPolicy, None] = None
-    units: List[Unit] | None = None
+    units: Union[List[Unit], None] = None
     monthly_fees: Union[HomeMonthlyFee, None] = Field(None, description="Monthly fees. Currently only some rental data will have them.")
-    one_time_fees: List[HomeOneTimeFee] | None = Field(None, description="One time fees. Currently only some rental data will have them.")
+    one_time_fees: Union[List[HomeOneTimeFee], None] = Field(None, description="One time fees. Currently only some rental data will have them.")
     parking: Union[HomeParkingDetails, None] = Field(None, description="Parking information. Currently only some rental data will have it.")
-    terms: List[PropertyDetails] | None = None
+    terms: Union[List[PropertyDetails], None] = None
     popularity: Union[Popularity, None] = None
     tax_record: Union[TaxRecord, None] = None
     parcel_info: Union[dict, None] = None  # Keep as dict for flexibility
-    current_estimates: List[PropertyEstimate] | None = None
+    current_estimates: Union[List[PropertyEstimate], None] = None
     estimates: Union[HomeEstimates, None] = None
     photos: Union[List[dict], None] = None  # Keep as dict for photo structure
     flags: Union[HomeFlags, None] = Field(None, description="Home flags for Listing/Property")
@@ -298,7 +298,7 @@ class PopularityPeriod(BaseModel):
 
 
 class Popularity(BaseModel):
-    periods: List[PopularityPeriod] | None = None
+    periods: Union[List[PopularityPeriod], None] = None
 
 
 class Assessment(BaseModel):
@@ -340,7 +340,7 @@ class PropertyEstimate(BaseModel):
 
 
 class HomeEstimates(BaseModel):
-    current_values: List[PropertyEstimate] | None = Field(None, description="Current valuation and best value for home from multiple AVM vendors")
+    current_values: Union[List[PropertyEstimate], None] = Field(None, description="Current valuation and best value for home from multiple AVM vendors")
 
 
 class PropertyDetails(BaseModel):
