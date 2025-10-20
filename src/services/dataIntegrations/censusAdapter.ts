@@ -11,8 +11,8 @@ import {
   FetchOptions,
   DataSource,
   DataSourceError,
+  CensusData,
 } from './types';
-import { MockProviders } from './mockProviders';
 
 export class CensusAdapter implements DataSourceAdapter {
   private config: DataSourceConfig;
@@ -54,14 +54,9 @@ export class CensusAdapter implements DataSourceAdapter {
     }
 
     try {
-      // Try to fetch real Census data first, fallback to mock if it fails
-      try {
-        const censusData = await this.fetchCensusData(zipCode);
-        return this.censusToStandard(censusData, zipCode);
-      } catch (apiError) {
-        console.warn('Census API failed, falling back to mock data:', apiError);
-        return await this.fetchMockData(zipCode);
-      }
+      // Fetch real Census data only - no mock fallback
+      const censusData = await this.fetchCensusData(zipCode);
+      return this.censusToStandard(censusData, zipCode);
     } catch (error) {
       if (error instanceof DataSourceError) {
         throw error;
@@ -73,17 +68,6 @@ export class CensusAdapter implements DataSourceAdapter {
         true,
       );
     }
-  }
-
-  /**
-   * Fetch mock data
-   */
-  private async fetchMockData(zipCode: string): Promise<StandardMarketData> {
-    // Simulate API delay
-    await new Promise((resolve) => setTimeout(resolve, 400));
-
-    const mockData = MockProviders.census(zipCode);
-    return MockProviders.censusToStandard(mockData, zipCode);
   }
 
   /**
@@ -312,8 +296,8 @@ export class CensusAdapter implements DataSourceAdapter {
       await this.fetchACSEstimates('90210', this.config.baseURL!);
       return true;
     } catch (error) {
-      console.warn('Census API connection test failed:', error);
-      return false; // Fallback to mock mode
+      console.error('Census API connection test failed:', error);
+      return false; // No fallback to mock mode
     }
   }
 

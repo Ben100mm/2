@@ -20,7 +20,6 @@ import { RealtorAdapter } from './realtorAdapter';
 import { CensusAdapter } from './censusAdapter';
 import { MLSAdapter } from './mlsAdapter';
 import { CountyAssessorAdapter } from './countyAssessorAdapter';
-import { MockProviders } from './mockProviders';
 
 export class DataAggregator {
   private adapters: Map<DataSource, any>;

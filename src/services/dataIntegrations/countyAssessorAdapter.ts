@@ -11,8 +11,8 @@ import {
   FetchOptions,
   DataSource,
   DataSourceError,
+  CountyAssessorData,
 } from './types';
-import { MockProviders } from './mockProviders';
 
 // County Assessor specific data types
 export interface CountyAssessorData {
@@ -175,21 +175,14 @@ export class CountyAssessorAdapter implements DataSourceAdapter {
       );
     }
 
-    try {
-      // For now, return mock data since most counties don't have public APIs
-      // In production, implement county-specific API calls
-      return await this.fetchMockData(zipCode);
-    } catch (error) {
-      if (error instanceof DataSourceError) {
-        throw error;
-      }
-      throw new DataSourceError(
-        `Failed to fetch County Assessor data: ${error}`,
-        DataSource.COUNTY_ASSESSOR,
-        undefined,
-        true,
-      );
-    }
+    // County Assessor data is property-specific, not ZIP code based
+    // This method should not be used directly - use fetchPropertyData instead
+    throw new DataSourceError(
+      'County Assessor data requires specific property APN. Use fetchPropertyData() instead.',
+      DataSource.COUNTY_ASSESSOR,
+      undefined,
+      false,
+    );
   }
 
   /**
@@ -372,17 +365,6 @@ export class CountyAssessorAdapter implements DataSourceAdapter {
   }
 
   /**
-   * Fetch mock data
-   */
-  private async fetchMockData(zipCode: string): Promise<StandardMarketData> {
-    // Simulate API delay
-    await new Promise((resolve) => setTimeout(resolve, 300));
-
-    const mockData = MockProviders.countyAssessor(zipCode);
-    return MockProviders.countyAssessorToStandard(mockData, zipCode);
-  }
-
-  /**
    * Convert county data to standard format
    */
   private countyToStandard(county: CountyAssessorData, zipCode: string): StandardMarketData {
@@ -470,11 +452,11 @@ export class CountyAssessorAdapter implements DataSourceAdapter {
         return response.ok;
       } catch (error) {
         clearTimeout(timeoutId);
-        return false; // Fallback to mock mode
+        return false; // No fallback to mock mode
       }
     } catch (error) {
-      console.warn('County Assessor API connection test failed:', error);
-      return false; // Fallback to mock mode
+      console.error('County Assessor API connection test failed:', error);
+      return false; // No fallback to mock mode
     }
   }
 

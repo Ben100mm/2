@@ -7,7 +7,7 @@ This implementation adds **free and accurate** data sources to the Dreamery plat
 1. **US Census API** - Demographics, population, housing data
 2. **County Assessor Integration** - Property assessments, tax records, ownership history
 
-Both integrations are designed to work with the existing data aggregation framework and provide fallback to mock data when APIs are unavailable.
+Both integrations use **REAL DATA ONLY** - no mock data or fallbacks. If APIs are unavailable, the adapters will throw errors rather than returning mock data.
 
 ## Features Implemented
 
@@ -15,7 +15,7 @@ Both integrations are designed to work with the existing data aggregation framew
 
 - **Real API calls** to `https://api.census.gov/data`
 - **American Community Survey (ACS) 5-Year Estimates** for comprehensive data
-- **Automatic fallback** to mock data if API fails
+- **No mock fallbacks** - fails gracefully with proper error handling
 - **Rate limiting and timeout handling**
 - **Data fields**: Population, income, housing, unemployment, education
 
@@ -25,7 +25,7 @@ Both integrations are designed to work with the existing data aggregation framew
 - **Property data**: APN, ownership, assessments, tax information
 - **Sales history** with appreciation rate calculations
 - **Permits and violations** tracking
-- **Mock data** for development and testing
+- **Real API calls only** - no mock data
 
 ### ✅ Enhanced Data Aggregation
 
@@ -33,17 +33,17 @@ Both integrations are designed to work with the existing data aggregation framew
 - **Weighted aggregation** with configurable priorities
 - **Quality scoring** for each data source
 - **Conflict resolution** strategies
+- **Real data only** - no mock fallbacks
 
 ## File Structure
 
 ```
 src/services/dataIntegrations/
-├── censusAdapter.ts              # Enhanced Census API integration
-├── countyAssessorAdapter.ts       # New County Assessor integration
-├── types.ts                      # Updated with new data types
-├── dataAggregator.ts             # Updated to include new adapters
-├── mockProviders.ts              # Updated with County Assessor mocks
-└── testIntegrations.ts           # Test suite for new integrations
+├── censusAdapter.ts              # Real Census API integration
+├── countyAssessorAdapter.ts       # Real County Assessor integration
+├── types.ts                      # Data types for all sources
+├── dataAggregator.ts             # Aggregates real data from all sources
+└── README.md                     # This documentation
 ```
 
 ## Configuration
@@ -116,10 +116,8 @@ import { CountyAssessorAdapter } from './services/dataIntegrations/countyAssesso
 
 const countyAdapter = new CountyAssessorAdapter();
 
-// Fetch general market data
-const countyData = await countyAdapter.fetchData('90210');
-
-// Fetch specific property data
+// County Assessor data is property-specific, not ZIP code based
+// Use fetchPropertyData for specific properties
 const propertyData = await countyAdapter.fetchPropertyData('123-456-789', 'los_angeles');
 console.log('Property data:', {
   apn: propertyData.apn,
@@ -158,30 +156,13 @@ The County Assessor adapter includes configurations for:
 
 To add more counties, update the `countyApis` Map in `countyAssessorAdapter.ts`.
 
-## Testing
-
-Run the test suite to verify the implementation:
-
-```typescript
-import { runAllTests } from './services/dataIntegrations/testIntegrations';
-
-// Run all integration tests
-const allTestsPassed = await runAllTests();
-console.log('All tests passed:', allTestsPassed);
-```
-
-Individual test functions:
-- `testCensusIntegration()` - Tests Census API
-- `testCountyAssessorIntegration()` - Tests County Assessor
-- `testDataAggregator()` - Tests data aggregation
-
 ## Error Handling
 
 Both adapters include comprehensive error handling:
 
 - **API timeouts** with configurable limits
 - **Rate limiting** protection
-- **Automatic fallback** to mock data
+- **No mock fallbacks** - proper error propagation
 - **Detailed error messages** for debugging
 - **Retry logic** for transient failures
 
@@ -222,7 +203,7 @@ Both adapters include comprehensive error handling:
 
 1. **Census API errors**: Check API key and rate limits
 2. **County API failures**: Verify county-specific endpoints
-3. **Mock data fallback**: Normal behavior when APIs are unavailable
+3. **No data available**: APIs may be down or rate limited
 4. **Timeout errors**: Increase timeout values in configuration
 
 ### Debug Mode
@@ -245,9 +226,9 @@ console.log('Census adapter available:', isAvailable);
 When adding new counties or data sources:
 
 1. **Update types** in `types.ts`
-2. **Add mock providers** in `mockProviders.ts`
+2. **Add county configuration** in `countyAssessorAdapter.ts`
 3. **Update aggregator** in `dataAggregator.ts`
-4. **Add tests** in `testIntegrations.ts`
+4. **Test with real APIs** - no mock data allowed
 5. **Update documentation**
 
 ## License
