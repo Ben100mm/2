@@ -47,10 +47,10 @@ export const Grid: React.FC<GridCompatProps> = ({ container, item, size, childre
   }
   
   if (item) {
-    // For item, we need to use the new Grid2 API
-    const { xs, sm, md, lg, xl, ...restProps } = gridProps;
-    const sizeObj = { xs, sm, md, lg, xl } as any;
-    return <MuiGrid size={sizeObj} {...restProps}>{children}</MuiGrid>;
+    // For item, pass the breakpoint props directly to MuiGrid
+    // Remove the size prop and item prop as they don't exist in MUI Grid
+    const { size: _, item: __, ...restProps } = gridProps;
+    return <MuiGrid {...restProps}>{children}</MuiGrid>;
   }
   
   return <MuiGrid {...gridProps}>{children}</MuiGrid>;
