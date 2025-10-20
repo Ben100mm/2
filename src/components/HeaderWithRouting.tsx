@@ -95,9 +95,11 @@ const Header: React.FC = () => {
           px: 3,
         }}
       >
-        {isAuthenticated ? (
-          console.log('Rendering authenticated user menu') ||
-          <Box
+        {(() => {
+          if (isAuthenticated) {
+            console.log('Rendering authenticated user menu');
+            return (
+              <Box
             sx={{
               position: "absolute",
               right: 32,
@@ -163,7 +165,9 @@ const Header: React.FC = () => {
           >
             Sign Up / Sign In
           </Button>
-        )}
+            );
+          }
+        })()}
         <Box
           onClick={() => navigate("/")}
           sx={{
