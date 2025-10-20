@@ -35,13 +35,15 @@ const Header: React.FC = () => {
   };
 
   const handleProfileClick = () => {
+    console.log('Profile clicked, navigating to /profile');
+    console.log('Authentication status:', { isAuthenticated, currentUser });
     handleUserMenuClose();
     navigate('/profile');
   };
 
   const handleNotificationsClick = () => {
     handleUserMenuClose();
-    navigate('/profile?tab=notifications');
+    navigate('/profile', { state: { tab: 'notifications' } });
   };
 
   const handleLogout = async () => {
