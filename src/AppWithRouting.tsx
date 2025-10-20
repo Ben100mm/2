@@ -1,6 +1,6 @@
 import React, { Suspense, lazy } from 'react';
 import { ThemeProvider, createTheme } from '@mui/material';
-import { BrowserRouter as Router, Routes, Route, Navigate } from 'react-router-dom';
+import { HashRouter as Router, Routes, Route, Navigate } from 'react-router-dom';
 import styled from 'styled-components';
 import { AuthProvider } from './contexts/AuthContext';
 import { RoleProvider, RoleContext } from './context/RoleContext';

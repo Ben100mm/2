@@ -25,6 +25,10 @@ export interface SeasonalFactors {
   springVacancyRate: number;
   fallVacancyRate: number;
   seasonalMaintenanceMultiplier: number;
+  q1: number; // Q1 occupancy multiplier
+  q2: number; // Q2 occupancy multiplier
+  q3: number; // Q3 occupancy multiplier
+  q4: number; // Q4 occupancy multiplier
 }
 
 export interface PropertyAgeFactors {
@@ -1532,6 +1536,10 @@ export const defaultSeasonalFactors: SeasonalFactors = {
   springVacancyRate: 0.05, // 5% higher in spring
   fallVacancyRate: 0, // No adjustment in fall
   seasonalMaintenanceMultiplier: 1.2, // 20% higher maintenance in summer
+  q1: 0.95, // Q1 occupancy multiplier
+  q2: 1.05, // Q2 occupancy multiplier
+  q3: 1.1, // Q3 occupancy multiplier
+  q4: 0.9, // Q4 occupancy multiplier
 };
 
 // Default location factors

@@ -7,7 +7,6 @@ import {
   CircularProgress,
   Card,
   CardContent,
-  Grid,
   LinearProgress,
   Chip,
   Paper,
@@ -20,6 +19,7 @@ import {
   TableHead,
   TableRow,
 } from "@mui/material";
+import { Grid } from "./GridCompat";
 import { DealState } from "../types/deal";
 import { 
   defaultRiskFactors,
@@ -27,7 +27,7 @@ import {
   calculateMetricRiskAdjustments,
 } from "../utils/advancedCalculations";
 import { brandColors } from "../theme";
-import { formatCurrency } from "./UXComponents";
+import { formatCurrency } from "./underwrite/utils";
 import { MonteCarloResults } from "../utils/monteCarloSimulation";
 import { BarChart } from "@mui/x-charts/BarChart";
 import { PieChart } from "@mui/x-charts/PieChart";

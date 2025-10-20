@@ -52,7 +52,7 @@ import {
   StandardMarketData,
 } from '../../services/dataIntegrations';
 import { brandColors } from '../../theme';
-import { formatCurrency } from '../UXComponents';
+import { formatCurrency } from '../underwrite/utils';
 
 export interface MarketDataExplorerProps {
   /**

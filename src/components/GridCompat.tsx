@@ -17,6 +17,8 @@ interface GridCompatProps extends Omit<GridProps, 'container' | 'item'> {
   md?: number | boolean;
   lg?: number | boolean;
   xl?: number | boolean;
+  sx?: any; // Add sx prop support
+  component?: React.ElementType; // Add component prop support
 }
 
 /**

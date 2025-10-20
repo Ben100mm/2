@@ -4,7 +4,8 @@
 
 import React from 'react';
 import { Html, Box as DreiBox } from '@react-three/drei';
-import { Box, Typography, Grid, Card, CardContent, List, ListItem, ListItemText } from '@mui/material';
+import { Box, Typography, Card, CardContent, List, ListItem, ListItemText } from '@mui/material';
+import { Grid } from '../../GridCompat';
 import { brandColors } from '../../../theme/theme';
 import CheckCircleIcon from '@mui/icons-material/CheckCircle';
 

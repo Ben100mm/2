@@ -4,7 +4,8 @@
 
 import React, { useState } from 'react';
 import { Html } from '@react-three/drei';
-import { Box, Typography, Grid, List, ListItem, ListItemText, Chip } from '@mui/material';
+import { Box, Typography, List, ListItem, ListItemText, Chip } from '@mui/material';
+import { Grid } from '../../GridCompat';
 import { brandColors } from '../../../theme/theme';
 import { InteractiveMesh } from '../shared/InteractiveMesh';
 import PropertyIcon from '@mui/icons-material/Home';

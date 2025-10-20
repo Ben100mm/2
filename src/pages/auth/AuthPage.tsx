@@ -20,40 +20,57 @@ import {
   Visibility as VisibilityIcon,
   VisibilityOff as VisibilityOffIcon,
   Email as EmailIcon,
-  Lock as LockIcon
+  Lock as LockIcon,
+  Person as PersonIcon,
+  Phone as PhoneIcon
 } from '@mui/icons-material';
 
 
 
 const AuthContainer = styled(Container)`
-  min-height: 100vh;
+  height: 100vh;
   display: flex;
   align-items: center;
   justify-content: center;
   background: ${brandColors.neutral[100]};
-  padding: 2rem;
+  padding: 1rem;
+  overflow: hidden;
 `;
 
 const AuthCard = styled(Paper)`
   width: 100%;
-  max-width: 400px;
-  padding: 2rem;
+  max-width: 380px;
+  padding: 1.5rem;
   border-radius: 8px;
   background: white;
   box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
   display: flex;
   flex-direction: column;
-  gap: 1.5rem;
+  gap: 1rem;
+  max-height: calc(100vh - 2rem);
+  overflow-y: auto;
 `;
 
 const LogoContainer = styled(Box)`
   display: flex;
   flex-direction: column;
   align-items: center;
-  margin-bottom: 1rem;
+  margin-bottom: 0.5rem;
   cursor: pointer;
 `;
 
+const BackButton = styled(Button)`
+  position: absolute;
+  top: 2rem;
+  left: 2rem;
+  color: ${brandColors.neutral[700]};
+  text-transform: none;
+  font-size: 14px;
+  
+  &:hover {
+    background: ${brandColors.neutral[50]};
+  }
+`;
 
 const StyledTextField = styled(TextField)`
   .MuiOutlinedInput-root {
@@ -85,20 +102,28 @@ const ContinueButton = styled(Button)`
 const SocialButton = styled(IconButton)`
   width: 48px;
   height: 48px;
-  border: 1px solid ${brandColors.neutral[300]};
+  border: 2px solid ${brandColors.neutral[300]};
   border-radius: 50%;
   background: white;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
   
   &:hover {
     background: ${brandColors.neutral[50]};
-    border-color: ${brandColors.neutral[400]};
+    border-color: ${brandColors.neutral[500]};
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.15);
+    transform: translateY(-1px);
+  }
+  
+  &:active {
+    transform: translateY(0);
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
   }
 `;
 
 const OrDivider = styled(Box)`
   display: flex;
   align-items: center;
-  margin: 1rem 0;
+  margin: 0.75rem 0;
   
   .MuiDivider-root {
     flex-grow: 1;
@@ -166,10 +191,14 @@ const XIcon = () => (
 
 const AuthPage: React.FC = () => {
   const navigate = useNavigate();
-  const { isAuthenticated, currentUser, login } = useAuth();
+  const { isAuthenticated, currentUser, login, signup } = useAuth();
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
+  const [confirmPassword, setConfirmPassword] = useState('');
+  const [fullName, setFullName] = useState('');
+  const [phone, setPhone] = useState('');
   const [showPassword, setShowPassword] = useState(false);
+  const [showConfirmPassword, setShowConfirmPassword] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
   const [error, setError] = useState('');
   const [isSignUp, setIsSignUp] = useState(false);
@@ -189,6 +218,17 @@ const AuthPage: React.FC = () => {
     navigate(-1);
   };
 
+  const isEmail = (input: string): boolean => {
+    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+    return emailRegex.test(input);
+  };
+
+  const isPhoneNumber = (input: string): boolean => {
+    const phoneRegex = /^[\+]?[1-9][\d]{0,15}$/;
+    const cleanInput = input.replace(/[\s\-\(\)]/g, '');
+    return phoneRegex.test(cleanInput) && cleanInput.length >= 10;
+  };
+
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     setIsLoading(true);
@@ -196,17 +236,26 @@ const AuthPage: React.FC = () => {
 
     try {
       if (isSignUp) {
-        // For now, just show success message for signup
-        setError('');
-        setTimeout(() => {
-          window.location.href = '/';
-        }, 1000);
+        // Validate password confirmation
+        if (password !== confirmPassword) {
+          setError('Passwords do not match');
+          setIsLoading(false);
+          return;
+        }
+        await signup(email, password, fullName, phone);
+        window.location.href = '/';
       } else {
+        // Validate login input
+        if (!isEmail(email) && !isPhoneNumber(email)) {
+          setError('Please enter a valid email address or phone number');
+          setIsLoading(false);
+          return;
+        }
         await login(email, password);
         window.location.href = '/';
       }
     } catch (error: any) {
-      setError(error.message || 'Invalid email or password');
+      setError(error.message || (isSignUp ? 'Registration failed' : 'Invalid email/phone or password'));
     } finally {
       setIsLoading(false);
     }
@@ -221,17 +270,6 @@ const AuthPage: React.FC = () => {
     <AuthContainer maxWidth={false}>
       <AuthCard elevation={0}>
         <LogoContainer onClick={handleLogoClick}>
-          <Box
-            component="img"
-            src="/logo.png"
-            alt="Dreamery Logo"
-            sx={{ 
-              height: 50,
-              width: 'auto',
-              marginBottom: '1rem',
-              filter: 'brightness(0) saturate(100%) invert(13%) sepia(30%) saturate(2910%) hue-rotate(195deg) brightness(93%) contrast(96%)'
-            }}
-          />
           <Typography
             variant="h4"
             sx={{
@@ -241,7 +279,7 @@ const AuthPage: React.FC = () => {
               letterSpacing: '-0.5px',
               fontSize: '2rem',
               textTransform: 'uppercase',
-              marginBottom: '0.5rem'
+              marginBottom: '0.75rem'
             }}
           >
             DREAMERY
@@ -266,14 +304,34 @@ const AuthPage: React.FC = () => {
         )}
 
         <Box component="form" onSubmit={handleSubmit}>
+          {isSignUp && (
+            <StyledTextField
+              fullWidth
+              label="Full Name*"
+              type="text"
+              value={fullName}
+              onChange={(e) => setFullName(e.target.value)}
+              required
+              sx={{ mb: 1.5 }}
+              InputProps={{
+                startAdornment: (
+                  <InputAdornment position="start">
+                    <PersonIcon sx={{ color: brandColors.neutral[500] }} />
+                  </InputAdornment>
+                ),
+              }}
+            />
+          )}
+
           <StyledTextField
             fullWidth
-            label="Email Address*"
-            type="email"
+            label={isSignUp ? "Email Address*" : "Email or Phone Number*"}
+            type={isSignUp ? "email" : "text"}
+            placeholder={isSignUp ? "" : "Enter your email or phone number"}
             value={email}
             onChange={(e) => setEmail(e.target.value)}
             required
-            sx={{ mb: 2 }}
+            sx={{ mb: 1.5 }}
             InputProps={{
               startAdornment: (
                 <InputAdornment position="start">
@@ -282,6 +340,25 @@ const AuthPage: React.FC = () => {
               ),
             }}
           />
+
+          {isSignUp && (
+            <StyledTextField
+              fullWidth
+              label="Phone Number"
+              type="tel"
+              value={phone}
+              onChange={(e) => setPhone(e.target.value)}
+              sx={{ mb: 1.5 }}
+              InputProps={{
+                startAdornment: (
+                  <InputAdornment position="start">
+                    <PhoneIcon sx={{ color: brandColors.neutral[500] }} />
+                  </InputAdornment>
+                ),
+              }}
+            />
+          )}
+
           
           <StyledTextField
             fullWidth
@@ -290,7 +367,7 @@ const AuthPage: React.FC = () => {
             value={password}
             onChange={(e) => setPassword(e.target.value)}
             required
-            sx={{ mb: 3 }}
+            sx={{ mb: 2 }}
             InputProps={{
               startAdornment: (
                 <InputAdornment position="start">
@@ -311,18 +388,48 @@ const AuthPage: React.FC = () => {
             }}
           />
 
+          {isSignUp && (
+            <StyledTextField
+              fullWidth
+              label="Confirm Password*"
+              type={showConfirmPassword ? 'text' : 'password'}
+              value={confirmPassword}
+              onChange={(e) => setConfirmPassword(e.target.value)}
+              required
+              sx={{ mb: 2 }}
+              InputProps={{
+                startAdornment: (
+                  <InputAdornment position="start">
+                    <LockIcon sx={{ color: brandColors.neutral[500] }} />
+                  </InputAdornment>
+                ),
+                endAdornment: (
+                  <InputAdornment position="end">
+                    <IconButton
+                      onClick={() => setShowConfirmPassword(!showConfirmPassword)}
+                      edge="end"
+                      sx={{ color: brandColors.neutral[500] }}
+                    >
+                      {showConfirmPassword ? <VisibilityOffIcon /> : <VisibilityIcon />}
+                    </IconButton>
+                  </InputAdornment>
+                ),
+              }}
+            />
+          )}
+
           <ContinueButton
             type="submit"
             fullWidth
             variant="contained"
             disabled={isLoading}
-            sx={{ mb: 3 }}
+            sx={{ mb: 2 }}
           >
             {isLoading ? 'Loading...' : 'Continue'}
           </ContinueButton>
         </Box>
 
-        <Box sx={{ textAlign: 'center', mb: 3 }}>
+        <Box sx={{ textAlign: 'center', mb: 2 }}>
           <Typography sx={{ color: brandColors.neutral[800], fontSize: '14px' }}>
             {isSignUp ? 'Have a Dreamery account?' : 'New to Dreamery?'}{' '}
             <Button
@@ -352,7 +459,7 @@ const AuthPage: React.FC = () => {
           <Divider />
         </OrDivider>
 
-        <Box sx={{ display: 'flex', justifyContent: 'center', gap: 2, mb: 3 }}>
+        <Box sx={{ display: 'flex', justifyContent: 'center', gap: 2, mb: 2 }}>
           <SocialButton onClick={() => handleSocialLogin('Google')}>
             <GoogleIcon />
           </SocialButton>
@@ -370,7 +477,7 @@ const AuthPage: React.FC = () => {
           </SocialButton>
         </Box>
 
-        <Box sx={{ textAlign: 'center', mb: 2 }}>
+        <Box sx={{ textAlign: 'center', mb: 1.5 }}>
           <Typography sx={{ color: brandColors.neutral[800], fontSize: '12px' }}>
             By submitting, I accept Dreamery's{' '}
             <Button

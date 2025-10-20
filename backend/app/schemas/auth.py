@@ -19,9 +19,6 @@ class UserRegister(BaseModel):
             raise ValueError('Password must contain at least one lowercase letter')
         if not any(c.isdigit() for c in v):
             raise ValueError('Password must contain at least one digit')
-        # Truncate password to 72 bytes to avoid bcrypt limitation
-        if len(v.encode('utf-8')) > 72:
-            v = v.encode('utf-8')[:72].decode('utf-8', errors='ignore')
         return v
 
 class UserLogin(BaseModel):

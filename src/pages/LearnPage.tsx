@@ -168,7 +168,7 @@ const LearnPage: React.FC = () => {
               Learning Resources
             </Typography>
             <Grid container spacing={3}>
-              <Grid item xs={12} md={4}>
+              <Grid xs={12} md={4}>
                 <Card 
                   elevation={2}
                   sx={{ 
@@ -189,7 +189,7 @@ const LearnPage: React.FC = () => {
                   </CardContent>
                 </Card>
               </Grid>
-              <Grid item xs={12} md={4}>
+              <Grid xs={12} md={4}>
                 <Card 
                   elevation={2}
                   sx={{ 
@@ -210,7 +210,7 @@ const LearnPage: React.FC = () => {
                   </CardContent>
                 </Card>
               </Grid>
-              <Grid item xs={12} md={4}>
+              <Grid xs={12} md={4}>
                 <Card 
                   elevation={2}
                   sx={{ 
@@ -240,7 +240,7 @@ const LearnPage: React.FC = () => {
               Success Stories
             </Typography>
             <Grid container spacing={3}>
-              <Grid item xs={12} md={6}>
+              <Grid xs={12} md={6}>
                 <Card elevation={2}>
                   <CardContent sx={{ p: 3 }}>
                     <Chip label="First-Time Buyer" size="small" color="primary" sx={{ mb: 2 }} />
@@ -258,7 +258,7 @@ const LearnPage: React.FC = () => {
                   </CardActions>
                 </Card>
               </Grid>
-              <Grid item xs={12} md={6}>
+              <Grid xs={12} md={6}>
                 <Card elevation={2}>
                   <CardContent sx={{ p: 3 }}>
                     <Chip label="Investor" size="small" color="primary" sx={{ mb: 2 }} />

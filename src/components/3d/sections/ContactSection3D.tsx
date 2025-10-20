@@ -4,7 +4,8 @@
 
 import React, { useState } from 'react';
 import { Html } from '@react-three/drei';
-import { Box, Typography, TextField, Button, Grid, Card, CardContent } from '@mui/material';
+import { Box, Typography, TextField, Button, Card, CardContent } from '@mui/material';
+import { Grid } from '../../GridCompat';
 import { brandColors } from '../../../theme/theme';
 import EmailIcon from '@mui/icons-material/Email';
 import PhoneIcon from '@mui/icons-material/Phone';

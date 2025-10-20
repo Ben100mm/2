@@ -7,12 +7,13 @@ import React, { useRef, useMemo } from 'react';
 import { Html } from '@react-three/drei';
 import { useFrame } from '@react-three/fiber';
 import * as THREE from 'three';
-import { Box, Typography, Grid, Card, CardContent } from '@mui/material';
+import { Box, Typography, Card, CardContent } from '@mui/material';
+import { Grid } from '../../GridCompat';
 import { brandColors } from '../../../theme/theme';
 import {
   dataSphereVertexShader,
   dataSphereFragmentShader,
-} from '../../../shaders/dataSphere.glsl.ts';
+} from '../../../shaders/dataSphere.glsl.js';
 import PeopleIcon from '@mui/icons-material/People';
 import TrendingUpIcon from '@mui/icons-material/TrendingUp';
 import PublicIcon from '@mui/icons-material/Public';

@@ -31,7 +31,7 @@ app.add_middleware(
 # Security middleware
 app.add_middleware(
     TrustedHostMiddleware,
-    allowed_hosts=["localhost", "127.0.0.1", "*.dreamery.com"]
+    allowed_hosts=["localhost", "127.0.0.1", "testserver", "*.dreamery.com"]
 )
 
 # Include routers

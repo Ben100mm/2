@@ -113,6 +113,7 @@ export const brandColors = {
     primary: '#ffffff',       // White - Primary backgrounds for cards and content areas
     secondary: '#f8f9fa',    // Very Light Gray - Secondary backgrounds (improved contrast)
     tertiary: '#f1f3f4',     // Light gray with better contrast
+    card: '#ffffff',          // White - Card backgrounds
     selected: '#e3f2fd',     // Light blue for selected states (maintained)
     hover: '#f0f4f8',        // Very light blue for hover (maintained)
     focus: '#e3f2fd',        // Light blue for focus states (improved)
@@ -192,6 +193,7 @@ export const brandColors = {
     dark: 'rgba(0, 0, 0, 0.25)', // Dark shadow
     colored: 'rgba(13, 35, 64, 0.15)', // Brand colored shadow
     coloredHover: '#113c5e', // Info Blue colored hover shadow
+    hover: 'rgba(13, 35, 64, 0.2)', // Hover shadow
   }
 };
 

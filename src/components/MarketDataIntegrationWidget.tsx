@@ -34,7 +34,7 @@ import {
 import { useNavigate } from 'react-router-dom';
 import { useDataIntegrations } from '../hooks/useDataIntegrations';
 import { AggregationStrategy } from '../services/dataIntegrations';
-import { formatCurrency } from './UXComponents';
+import { formatCurrency } from './underwrite/utils';
 import { brandColors } from '../theme';
 
 export interface MarketDataIntegrationWidgetProps {

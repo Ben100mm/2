@@ -23,7 +23,7 @@ interface AuthContextType {
   loading: boolean;
   isAuthenticated: boolean;
   isEmailVerified: boolean;
-  login: (email: string, password: string) => Promise<void>;
+  login: (identifier: string, password: string) => Promise<void>;
   signup: (email: string, password: string, fullName?: string, phone?: string, company?: string) => Promise<void>;
   logout: () => Promise<void>;
   userDeals: any[];
@@ -141,20 +141,23 @@ export const AuthProvider: React.FC<AuthProviderProps> = ({ children }) => {
     return 'Unknown';
   };
 
-  const login = async (email: string, password: string): Promise<void> => {
+  const login = async (identifier: string, password: string): Promise<void> => {
     try {
       const deviceInfo = generateDeviceInfo();
+      
+      // Determine if identifier is email or phone
+      const isEmailFormat = /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(identifier);
+      
+      const requestBody = isEmailFormat 
+        ? { email: identifier, password, device_info: deviceInfo }
+        : { phone: identifier, password, device_info: deviceInfo };
       
       const response = await fetch(`${API_BASE_URL}/api/auth/login`, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
         },
-        body: JSON.stringify({
-          email,
-          password,
-          device_info: deviceInfo
-        }),
+        body: JSON.stringify(requestBody),
       });
 
       if (!response.ok) {

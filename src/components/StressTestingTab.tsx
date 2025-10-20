@@ -52,7 +52,7 @@ import {
   StressTestResultWithMetrics,
 } from '../utils/advancedCalculations';
 import { brandColors } from '../theme';
-import { formatCurrency } from './UXComponents';
+import { formatCurrency } from './underwrite/utils';
 
 // ============================================================================
 // Types

@@ -2836,7 +2836,7 @@ const UnderwritePage: React.FC = () => {
       input.calculatorMode,
     );
     let offerType = input.offerType;
-    if (!allowedOffers.includes(offerType)) {
+    if (!offerType || !allowedOffers.includes(offerType)) {
       offerType = allowedOffers[0];
       messages.push(
         `Finance Type reset to offerType for input.propertyType + operationType.`,
@@ -3049,7 +3049,7 @@ const UnderwritePage: React.FC = () => {
           candidate.operationType as OperationType,
           calculatorMode,
         );
-        if (!offers.includes(candidate.offerType)) {
+        if (!candidate.offerType || !offers.includes(candidate.offerType)) {
           candidate.offerType = offers[0];
           candidate.validationMessages = [
             ...(candidate.validationMessages || []),
@@ -4124,7 +4124,7 @@ const UnderwritePage: React.FC = () => {
       },
     };
 
-    const propertyBenchmarks = benchmarks[state.propertyType];
+    const propertyBenchmarks = benchmarks[state.propertyType as keyof typeof benchmarks];
     if (!propertyBenchmarks) {
       return benchmarks["Single Family"]["Buy & Hold"];
     }
@@ -13387,7 +13387,7 @@ const UnderwritePage: React.FC = () => {
                           fullWidth
                           label="Return on Equity (Year 1)"
                           value={(() => {
-                            const roe = underwriteCalculationService.calculateROE(state);
+                            const roe = underwriteCalculationService.calculateROE(state as any);
                             return roe > 0 ? roe.toFixed(1) + "%" : "N/A";
                           })()}
                           InputProps={{ readOnly: true }}
@@ -13397,7 +13397,7 @@ const UnderwritePage: React.FC = () => {
                           fullWidth
                           label="Return on Equity (Year 5)"
                           value={(() => {
-                            const roe = underwriteCalculationService.calculateROEAtYear(state, 5);
+                            const roe = underwriteCalculationService.calculateROEAtYear(state as any, 5);
                             return roe > 0 ? roe.toFixed(1) + "%" : "N/A";
                           })()}
                           InputProps={{ readOnly: true }}

@@ -4,7 +4,8 @@
 
 import React from 'react';
 import { Html, Line } from '@react-three/drei';
-import { Box, Typography, Grid, Card, CardContent } from '@mui/material';
+import { Box, Typography, Card, CardContent } from '@mui/material';
+import { Grid } from '../../GridCompat';
 import { brandColors } from '../../../theme/theme';
 
 const integrations = [

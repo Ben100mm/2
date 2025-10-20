@@ -5,7 +5,6 @@ import {
   Typography,
   Tabs,
   Tab,
-  Grid,
   List,
   ListItem,
   ListItemText,
@@ -35,6 +34,7 @@ import {
   Slider,
   Switch,
 } from '@mui/material';
+import { Grid } from '../GridCompat';
 import {
   Search as SearchIcon,
   FilterList as FilterIcon,

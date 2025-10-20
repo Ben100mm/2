@@ -3,7 +3,6 @@ import {
   Box,
   Container,
   Typography,
-  Grid,
   Card,
   CardContent,
   CardActions,
@@ -13,6 +12,7 @@ import {
   ListItem,
   ListItemText
 } from '@mui/material';
+import { Grid } from '../components/GridCompat';
 import { 
   Campaign as CampaignIcon,
   Business as BusinessIcon,
