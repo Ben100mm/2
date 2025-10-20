@@ -55,7 +55,6 @@ import {
 } from "../utils/finance";
 import {
   calculateSeasonalAdjustments,
-  defaultSeasonalFactors,
   calculateMarketAdjustments,
   defaultMarketConditions,
   calculateExitStrategies,
@@ -77,6 +76,7 @@ import {
   type PropertyAgeFactors,
   type LocationFactors,
 } from "../utils/advancedCalculations";
+import { defaultSeasonalFactors } from "../utils/advancedCalculations";
 import { underwriteCalculationService } from "../services/underwriteCalculationService";
 import { MLRiskPredictionDisplay } from "../components/MLRiskPredictionDisplay";
 import { ModeSelector } from "../components/calculator/ModeSelector";
@@ -2836,7 +2836,7 @@ const UnderwritePage: React.FC = () => {
       input.calculatorMode,
     );
     let offerType = input.offerType;
-    if (!offerType || !allowedOffers.includes(offerType as any)) {
+    if (!offerType || !allowedOffers.includes(offerType)) {
       offerType = allowedOffers[0];
       messages.push(
         `Finance Type reset to offerType for input.propertyType + operationType.`,
@@ -3049,7 +3049,7 @@ const UnderwritePage: React.FC = () => {
           candidate.operationType as OperationType,
           calculatorMode,
         );
-        if (!candidate.offerType || !offers.includes(candidate.offerType as any)) {
+        if (!candidate.offerType || !offers.includes(candidate.offerType)) {
           candidate.offerType = offers[0];
           candidate.validationMessages = [
             ...(candidate.validationMessages || []),

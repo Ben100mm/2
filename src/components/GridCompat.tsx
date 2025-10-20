@@ -41,8 +41,19 @@ export const Grid: React.FC<GridCompatProps> = ({ container, item, size, childre
     }
   }
   
-  // Use type assertion to bypass TypeScript checks for the legacy API
-  return <MuiGrid {...(gridProps as any)} container={container} item={item}>{children}</MuiGrid>;
+  // For MUI v7, we need to handle the legacy API differently
+  if (container) {
+    return <MuiGrid container spacing={props.spacing} {...gridProps}>{children}</MuiGrid>;
+  }
+  
+  if (item) {
+    // For item, we need to use the new Grid2 API
+    const { xs, sm, md, lg, xl, ...restProps } = gridProps;
+    const sizeObj = { xs, sm, md, lg, xl } as any;
+    return <MuiGrid size={sizeObj} {...restProps}>{children}</MuiGrid>;
+  }
+  
+  return <MuiGrid {...gridProps}>{children}</MuiGrid>;
 };
 
 export default Grid;
