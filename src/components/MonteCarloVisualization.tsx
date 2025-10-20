@@ -9,7 +9,6 @@ import {
   Box,
   Paper,
   Typography,
-  Grid,
   Card,
   CardContent,
   Divider,
@@ -20,6 +19,7 @@ import {
   useTheme,
   alpha
 } from '@mui/material';
+import { Grid } from './GridCompat';
 import {
   BarChart,
   Bar,

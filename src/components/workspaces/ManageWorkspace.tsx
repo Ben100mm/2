@@ -6,7 +6,6 @@ import {
   Typography,
   Tabs,
   Tab,
-  Grid,
   List,
   ListItem,
   ListItemText,
@@ -31,6 +30,7 @@ import {
   IconButton,
   Tooltip,
 } from '@mui/material';
+import { Grid } from '../GridCompat';
 import EditIcon from '@mui/icons-material/Edit';
 import { brandColors } from '../../theme';
 import ManageDashboard from '../manage/ManageDashboard';

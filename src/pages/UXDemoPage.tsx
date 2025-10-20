@@ -5,13 +5,13 @@ import {
   Container,
   Typography,
   Paper,
-  Grid,
   Button,
   Card,
   CardContent,
   Divider,
   Alert,
 } from "@mui/material";
+import { Grid } from "../components/GridCompat";
 import {
   LoadingSpinner,
   LoadingOverlayComponent,

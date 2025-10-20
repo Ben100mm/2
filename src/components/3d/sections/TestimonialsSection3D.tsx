@@ -14,8 +14,8 @@ import {
   Avatar,
   Rating,
   IconButton,
-  Grid,
 } from '@mui/material';
+import { Grid } from '../../GridCompat';
 import { brandColors } from '../../../theme/theme';
 import ArrowBackIcon from '@mui/icons-material/ArrowBack';
 import ArrowForwardIcon from '@mui/icons-material/ArrowForward';

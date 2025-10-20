@@ -594,6 +594,10 @@ export function computeIncome(state: DealState): number {
             springVacancyRate: seasonalVariations.q1 / 100,
             fallVacancyRate: seasonalVariations.q3 / 100,
             seasonalMaintenanceMultiplier: 1,
+            q1: seasonalVariations.q1 / 100,
+            q2: seasonalVariations.q2 / 100,
+            q3: seasonalVariations.q3 / 100,
+            q4: seasonalVariations.q4 / 100,
           };
           const month = new Date().getMonth() + 1;
           const { adjustedVacancyRate } = calculateSeasonalAdjustments(

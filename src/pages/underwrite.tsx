@@ -1,7 +1,6 @@
 import React, { useState } from 'react';
 import styled from 'styled-components';
 import { 
-  Grid, 
   Card, 
   CardContent, 
   CardMedia,
@@ -31,6 +30,7 @@ import {
   Paper,
   Rating
 } from '@mui/material';
+import { Grid } from '../components/GridCompat';
 import { 
   Assessment as AssessmentIcon,
   CheckCircle as CheckIcon,

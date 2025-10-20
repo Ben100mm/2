@@ -8,10 +8,10 @@ interface AuthGuardProps {
   fallback?: React.ReactNode;
 }
 
-export const AuthGuard: React.FC<AuthGuardProps> = ({ 
+export const AuthGuard = ({ 
   children, 
   fallback = <Navigate to="/" replace />
-}) => {
+}: AuthGuardProps): React.ReactElement => {
   const { isAuthenticated, loading } = useAuth();
   const location = useLocation();
 
@@ -33,7 +33,7 @@ export const AuthGuard: React.FC<AuthGuardProps> = ({
 
   // If not authenticated, redirect to homepage
   if (!isAuthenticated) {
-    return fallback;
+    return fallback as React.ReactElement;
   }
 
   // If authenticated, render the protected content

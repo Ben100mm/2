@@ -3,7 +3,6 @@ import {
   Box,
   Container,
   Typography,
-  Grid,
   Card,
   CardContent,
   CardActions,
@@ -13,6 +12,7 @@ import {
   ListItem,
   ListItemText
 } from '@mui/material';
+import { Grid } from '../components/GridCompat';
 import { 
   School as CoursesIcon,
   Assignment as CaseStudiesIcon,
@@ -168,7 +168,7 @@ const LearnPage: React.FC = () => {
               Learning Resources
             </Typography>
             <Grid container spacing={3}>
-              <Grid xs={12} md={4}>
+              <Grid item xs={12} md={4}>
                 <Card 
                   elevation={2}
                   sx={{ 
@@ -189,7 +189,7 @@ const LearnPage: React.FC = () => {
                   </CardContent>
                 </Card>
               </Grid>
-              <Grid xs={12} md={4}>
+              <Grid item xs={12} md={4}>
                 <Card 
                   elevation={2}
                   sx={{ 
@@ -206,11 +206,11 @@ const LearnPage: React.FC = () => {
                     </Typography>
                     <Typography variant="body2" color="text.secondary">
                       Learn from real-world examples and success stories from experienced real estate professionals.
-            </Typography>
+                    </Typography>
                   </CardContent>
                 </Card>
               </Grid>
-              <Grid xs={12} md={4}>
+              <Grid item xs={12} md={4}>
                 <Card 
                   elevation={2}
                   sx={{ 
@@ -223,11 +223,11 @@ const LearnPage: React.FC = () => {
                   <CardContent sx={{ textAlign: 'center', p: 4 }}>
                     <LiveSessionsIcon sx={{ fontSize: 60, color: brandColors.primary, mb: 2 }} />
                     <Typography variant="h5" gutterBottom sx={{ fontWeight: 600 }}>
-              Live Sessions
-            </Typography>
+                      Live Sessions
+                    </Typography>
                     <Typography variant="body2" color="text.secondary">
                       Join interactive webinars, workshops, and live Q&A sessions with industry leaders.
-            </Typography>
+                    </Typography>
                   </CardContent>
                 </Card>
               </Grid>
@@ -240,7 +240,7 @@ const LearnPage: React.FC = () => {
               Success Stories
             </Typography>
             <Grid container spacing={3}>
-              <Grid xs={12} md={6}>
+              <Grid item xs={12} md={6}>
                 <Card elevation={2}>
                   <CardContent sx={{ p: 3 }}>
                     <Chip label="First-Time Buyer" size="small" color="primary" sx={{ mb: 2 }} />
@@ -258,16 +258,16 @@ const LearnPage: React.FC = () => {
                   </CardActions>
                 </Card>
               </Grid>
-              <Grid xs={12} md={6}>
+              <Grid item xs={12} md={6}>
                 <Card elevation={2}>
                   <CardContent sx={{ p: 3 }}>
                     <Chip label="Investor" size="small" color="primary" sx={{ mb: 2 }} />
                     <Typography variant="h6" gutterBottom sx={{ fontWeight: 600 }}>
                       Building a 10-Property Portfolio
-            </Typography>
+                    </Typography>
                     <Typography variant="body2" color="text.secondary">
                       Learn how Mike scaled from one rental to ten properties in 5 years using strategic financing.
-            </Typography>
+                    </Typography>
                   </CardContent>
                   <CardActions sx={{ px: 3, pb: 3 }}>
                     <Button size="small" endIcon={<ArrowForwardIcon />}>

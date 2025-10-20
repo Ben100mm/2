@@ -79,7 +79,7 @@ import {
   Compare as CompareIcon,
   Map as MapIcon,
   PhotoLibrary as PhotoIcon,
-  VirtualTour as VirtualTourIcon,
+  Panorama as VirtualTourIcon,
   Verified as VerifiedIcon,
   Star as StarIcon,
   StarBorder as StarBorderIcon,

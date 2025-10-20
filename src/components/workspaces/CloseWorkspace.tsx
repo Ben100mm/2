@@ -11,7 +11,7 @@ import InsuranceUtilities from '../close/insurance-utilities/InsuranceUtilities'
 import FinalWalkthroughHandover from '../close/walkthrough/FinalWalkthroughHandover';
 import PostClosingServices from '../close/post-closing/PostClosingServices';
 import ClosingAssistant from '../close/assistant/ClosingAssistant';
-import PartnerIntegrations from '../close/partner-integrations/PartnerIntegrations';
+import PartnerIntegrations from '../close/integrations/PartnerIntegrations';
 
 interface CloseWorkspaceProps {
   activeTab: string;

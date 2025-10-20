@@ -14,7 +14,6 @@ import {
   TextField,
   Button,
   Chip,
-  Grid,
   Alert,
   CircularProgress,
   Collapse,
@@ -22,6 +21,7 @@ import {
   Tooltip,
   Link,
 } from '@mui/material';
+import { Grid } from './GridCompat';
 import {
   ExpandMore as ExpandMoreIcon,
   ExpandLess as ExpandLessIcon,

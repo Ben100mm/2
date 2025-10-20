@@ -64,7 +64,8 @@ export const RiskAnalysisTab: React.FC<RiskAnalysisTabProps> = ({
     try {
       const riskScore = calculateRiskScore(
         dealState.riskFactors || defaultRiskFactors,
-        dealState.marketConditions
+        dealState.marketConditions,
+        dealState.propertyAge || { age: 0, condition: 'good', renovationNeeded: false }
       );
       return riskScore;
     } catch (error) {
@@ -91,8 +92,8 @@ export const RiskAnalysisTab: React.FC<RiskAnalysisTabProps> = ({
       const cocReturn = downPayment > 0 ? (annualCashFlow / downPayment) * 100 : 0;
       
       // Calculate DSCR
-      const interestRate = dealState.loan?.rate || 0;
-      const loanTermYears = dealState.loan?.term || 30;
+      const interestRate = dealState.loan?.annualInterestRate || 0;
+      const loanTermYears = dealState.loan?.amortizationYears || 30;
       const monthlyRate = interestRate / 100 / 12;
       const loanTermMonths = loanTermYears * 12;
       let monthlyPayment = 0;
@@ -321,8 +322,8 @@ export const RiskAnalysisTab: React.FC<RiskAnalysisTabProps> = ({
                       <Chip 
                         label={weightedRiskAnalysis.riskCategory}
                         color={
-                          weightedRiskAnalysis.riskCategory === 'Low Risk' ? 'success' :
-                          weightedRiskAnalysis.riskCategory === 'Moderate Risk' ? 'warning' : 'error'
+                          weightedRiskAnalysis.riskCategory === 'Low' ? 'success' :
+                          weightedRiskAnalysis.riskCategory === 'Medium' ? 'warning' : 'error'
                         }
                         sx={{ fontWeight: 600 }}
                       />
@@ -452,15 +453,15 @@ export const RiskAnalysisTab: React.FC<RiskAnalysisTabProps> = ({
                               color: '#F38181'
                             },
                           ],
-                          highlightScope: { faded: 'global', highlighted: 'item' },
+                          highlightScope: { fade: 'global', highlight: 'item' },
                           faded: { innerRadius: 30, additionalRadius: -30, color: 'gray' },
                         },
                       ]}
                       height={300}
                       slotProps={{
                         legend: {
-                          direction: 'column',
-                          position: { vertical: 'middle', horizontal: 'right' },
+                          direction: 'column' as const,
+                          position: { vertical: 'middle', horizontal: 'end' },
                           padding: 0,
                         },
                       }}
@@ -1366,11 +1367,11 @@ export const RiskAnalysisTab: React.FC<RiskAnalysisTabProps> = ({
                             </Typography>
                           </TableCell>
                           <TableCell align="center">
-                            <Typography variant="body2">&lt; {formatCurrency((monteCarloResults.totalReturnStats.mean * 0.5).toString())}</Typography>
+                            <Typography variant="body2">&lt; {formatCurrency(monteCarloResults.totalReturnStats.mean * 0.5)}</Typography>
                           </TableCell>
                           <TableCell align="center">
                             <Typography variant="body2" sx={{ fontWeight: 600 }}>
-                              {formatCurrency(monteCarloResults.riskMetrics.maxDrawdown.toString())}
+                              {formatCurrency(monteCarloResults.riskMetrics.maxDrawdown)}
                             </Typography>
                           </TableCell>
                           <TableCell align="center">
@@ -1491,7 +1492,7 @@ export const RiskAnalysisTab: React.FC<RiskAnalysisTabProps> = ({
                           Total Return Range
                         </Typography>
                         <Typography variant="body2" sx={{ color: brandColors.neutral[800] }}>
-                          {formatCurrency(monteCarloResults.totalReturnStats.confidenceInterval95.lower.toString())} - {formatCurrency(monteCarloResults.totalReturnStats.confidenceInterval95.upper.toString())}
+                          {formatCurrency(monteCarloResults.totalReturnStats.confidenceInterval95.lower)} - {formatCurrency(monteCarloResults.totalReturnStats.confidenceInterval95.upper)}
                         </Typography>
                       </Box>
                     </Grid>

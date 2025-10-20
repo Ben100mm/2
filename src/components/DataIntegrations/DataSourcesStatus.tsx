@@ -15,7 +15,6 @@ import {
   Card,
   CardContent,
   Typography,
-  Grid,
   Chip,
   LinearProgress,
   Button,
@@ -28,6 +27,7 @@ import {
   Divider,
   Alert,
 } from '@mui/material';
+import { Grid } from '../GridCompat';
 import {
   CheckCircle as CheckCircleIcon,
   Error as ErrorIcon,
@@ -109,7 +109,7 @@ function getSourceDisplayName(source: DataSource): string {
     case DataSource.AGGREGATED:
       return 'Aggregated Data';
     default:
-      return source.toString();
+      return 'Unknown Source';
   }
 }
 

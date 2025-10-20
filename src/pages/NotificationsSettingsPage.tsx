@@ -9,13 +9,13 @@ import {
   TextField,
   Button,
   Divider,
-  Grid,
   Card,
   CardContent,
   IconButton,
   Breadcrumbs,
   Link,
 } from '@mui/material';
+import { Grid } from '../components/GridCompat';
 import {
   ArrowBack,
   ArrowForward,

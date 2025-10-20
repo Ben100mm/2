@@ -15,7 +15,6 @@ import {
   Toolbar,
   Drawer,
   List,
-  Grid,
   TextField,
   useTheme,
   useMediaQuery,
@@ -28,6 +27,7 @@ import {
   Tab,
   LinearProgress,
 } from '@mui/material';
+import { Grid } from '../components/GridCompat';
 import { brandColors } from "../theme";
 import UnifiedRoleSelector from '../components/UnifiedRoleSelector';
 import TemplatesComponent from '../components/TemplatesComponent';

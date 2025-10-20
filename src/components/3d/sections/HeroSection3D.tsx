@@ -69,7 +69,7 @@ export const HeroSection3D: React.FC<{ visible: boolean }> = ({ visible }) => {
 
       {/* Floating geometric shapes */}
       <Sphere
-        ref={(ref) => ref && (shapes.current[0] = ref)}
+        ref={(ref) => { if (ref) shapes.current[0] = ref; }}
         args={[0.3, 16, 16]}
         position={[-3, 1, -2]}
       >

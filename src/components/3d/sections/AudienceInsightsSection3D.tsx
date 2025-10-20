@@ -13,7 +13,7 @@ import { brandColors } from '../../../theme/theme';
 import {
   dataSphereVertexShader,
   dataSphereFragmentShader,
-} from '../../../shaders/dataSphere.glsl.js';
+} from '../../../shaders/dataSphere.glsl';
 import PeopleIcon from '@mui/icons-material/People';
 import TrendingUpIcon from '@mui/icons-material/TrendingUp';
 import PublicIcon from '@mui/icons-material/Public';

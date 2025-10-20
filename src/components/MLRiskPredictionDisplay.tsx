@@ -9,7 +9,6 @@ import {
   Typography,
   Card,
   CardContent,
-  Grid,
   Chip,
   LinearProgress,
   Alert,
@@ -26,6 +25,7 @@ import {
   TableRow,
   Paper,
 } from '@mui/material';
+import { Grid } from './GridCompat';
 import {
   TrendingUp as TrendingUpIcon,
   TrendingDown as TrendingDownIcon,

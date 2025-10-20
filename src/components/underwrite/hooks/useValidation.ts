@@ -34,11 +34,13 @@ export function validateAndNormalizeState(input: DealState): ValidationResult {
     operationType,
   );
   let offerType = input.offerType;
-  if (!allowedOffers.includes(offerType)) {
+  if (offerType && !allowedOffers.includes(offerType)) {
     offerType = allowedOffers[0];
     messages.push(
       `Finance Type reset to ${offerType} for ${input.propertyType} + ${operationType}.`,
     );
+  } else if (!offerType) {
+    offerType = allowedOffers[0];
   }
   
   const next: DealState = {

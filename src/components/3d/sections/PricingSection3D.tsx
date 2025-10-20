@@ -17,9 +17,9 @@ import {
   ListItemText,
   Switch,
   Slider,
-  Grid,
   Chip,
 } from '@mui/material';
+import { Grid } from '../../GridCompat';
 import { brandColors } from '../../../theme/theme';
 import CheckCircleIcon from '@mui/icons-material/CheckCircle';
 

@@ -7,6 +7,9 @@
 
 import { CashFlowProjectionParams, generateCashFlowProjections } from './cashFlowProjections';
 
+// Re-export for external use
+export type { CashFlowProjectionParams };
+
 // ============================================================================
 // Types & Interfaces
 // ============================================================================

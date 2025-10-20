@@ -2,6 +2,7 @@ import React from "react";
 import { render, screen, waitFor, within } from "@testing-library/react";
 import userEvent from "@testing-library/user-event";
 import { describe, it, expect, beforeEach } from "@jest/globals";
+import "@testing-library/jest-dom";
 
 /**
  * Integration Tests for UnderwritePage

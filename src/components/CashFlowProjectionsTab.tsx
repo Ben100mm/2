@@ -11,7 +11,6 @@ import {
   Typography,
   Button,
   TextField,
-  Grid,
   Accordion,
   AccordionSummary,
   AccordionDetails,
@@ -25,6 +24,7 @@ import {
   Tabs,
   Tab
 } from '@mui/material';
+import { Grid } from './GridCompat';
 import {
   ExpandMore,
   Refresh,

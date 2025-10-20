@@ -3,7 +3,6 @@ import {
   Box,
   Paper,
   Typography,
-  Grid,
   Card,
   CardContent,
   Stack,
@@ -11,6 +10,7 @@ import {
   Button,
   Divider,
 } from '@mui/material';
+import { Grid } from '../GridCompat';
 import {
   Assessment as AssessmentIcon,
   CheckCircle as CheckCircleIcon,
@@ -220,7 +220,7 @@ const WorkflowDashboard: React.FC<WorkflowDashboardProps> = ({ roleId, roleName 
                   </Typography>
                   {step.dependencies.length > 0 && (
                     <Typography variant="caption" color="text.secondary" sx={{ mt: 0.5, display: 'block' }}>
-                      Dependencies: {step.dependencies.map(depId => {
+                      Dependencies: {step.dependencies.map((depId: string) => {
                         const depStep = workflowTemplate.find(s => s.id === depId);
                         return depStep?.name;
                       }).join(', ')}

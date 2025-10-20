@@ -36,6 +36,8 @@ export const defaultState: DealState = {
   listedPrice: 160000,
   purchasePrice: 160000,
   percentageDifference: 0,
+  city: "",
+  state: "",
   loan: {
     downPayment: 32000,
     loanAmount: 128000,
@@ -48,6 +50,9 @@ export const defaultState: DealState = {
     amortizationYears: 50,
     closingCosts: 0,
     rehabCosts: 0,
+    totalInterest: 0,
+    totalPayment: 0,
+    amortizationSchedule: [],
   },
   subjectTo: {
     paymentToSeller: 0,
@@ -59,6 +64,7 @@ export const defaultState: DealState = {
   hybrid: {
     downPayment: 0,
     loan3Amount: 0,
+    loanAmount: 0,
     annualInterestRate: 0,
     monthlyPayment: 0,
     annualPayment: 0,
@@ -70,6 +76,7 @@ export const defaultState: DealState = {
     totalLoanBalance: 0,
     totalMonthlyPayment: 0,
     totalAnnualPayment: 0,
+    amortizationSchedule: [],
   },
   fixFlip: {
     arv: 0,
@@ -337,5 +344,37 @@ export const defaultState: DealState = {
   validationMessages: [],
   showAmortizationOverride: false,
   snackbarOpen: false,
+  proForma: {
+    conservative: {
+      vacancy: 7,
+      maintenance: 8,
+      management: 10,
+      capEx: 5,
+      insurance: 1,
+      taxes: 1.5,
+      utilities: 0,
+      other: 0,
+    },
+    moderate: {
+      vacancy: 5,
+      maintenance: 6,
+      management: 8,
+      capEx: 4,
+      insurance: 1,
+      taxes: 1.5,
+      utilities: 0,
+      other: 0,
+    },
+    aggressive: {
+      vacancy: 3,
+      maintenance: 4,
+      management: 6,
+      capEx: 3,
+      insurance: 1,
+      taxes: 1.5,
+      utilities: 0,
+      other: 0,
+    },
+  },
 };
 

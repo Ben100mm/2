@@ -13,9 +13,9 @@ import {
   ListItem,
   ListItemText,
   Divider,
-  Grid,
   Paper
 } from '@mui/material';
+import { Grid } from '../GridCompat';
 import { 
   CheckCircle, 
   Lock, 

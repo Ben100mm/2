@@ -2836,7 +2836,7 @@ const UnderwritePage: React.FC = () => {
       input.calculatorMode,
     );
     let offerType = input.offerType;
-    if (!offerType || !allowedOffers.includes(offerType)) {
+    if (!offerType || !allowedOffers.includes(offerType as any)) {
       offerType = allowedOffers[0];
       messages.push(
         `Finance Type reset to offerType for input.propertyType + operationType.`,
@@ -3049,7 +3049,7 @@ const UnderwritePage: React.FC = () => {
           candidate.operationType as OperationType,
           calculatorMode,
         );
-        if (!candidate.offerType || !offers.includes(candidate.offerType)) {
+        if (!candidate.offerType || !offers.includes(candidate.offerType as any)) {
           candidate.offerType = offers[0];
           candidate.validationMessages = [
             ...(candidate.validationMessages || []),

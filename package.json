@@ -84,7 +84,6 @@
       "last 1 safari version"
     ]
   },
-  "proxy": "http://localhost:8000",
   "prisma": {
     "seed": "ts-node --transpile-only --compiler-options '{\"module\":\"commonjs\"}' server/scripts/seedDatabase.ts"
   },

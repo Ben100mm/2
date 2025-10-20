@@ -13,7 +13,6 @@ import {
   CardContent,
   Typography,
   LinearProgress,
-  Grid,
   Chip,
   Alert,
   Table,
@@ -28,6 +27,7 @@ import {
   AccordionDetails,
   Tooltip,
 } from '@mui/material';
+import { Grid } from './GridCompat';
 import {
   PlayArrow,
   Stop,

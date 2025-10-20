@@ -11,7 +11,6 @@ import {
   Typography,
   Button,
   TextField,
-  Grid,
   FormControl,
   InputLabel,
   Select,
@@ -25,6 +24,7 @@ import {
   Divider,
   LinearProgress
 } from '@mui/material';
+import { Grid } from './GridCompat';
 import {
   ExpandMore,
   PlayArrow,
@@ -38,8 +38,8 @@ import {
   MonteCarloInputs,
   Distribution,
   DistributionType,
-  CashFlowProjectionParams
 } from '../utils/monteCarloSimulation';
+import { CashFlowProjectionParams } from '../utils/cashFlowProjections';
 
 // ============================================================================
 // Types

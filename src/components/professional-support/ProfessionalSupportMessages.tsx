@@ -5,7 +5,6 @@ import {
   CardContent,
   Typography,
   Button,
-  Grid,
   Avatar,
   List,
   ListItem,
@@ -20,6 +19,7 @@ import {
   Tab,
   Paper,
 } from '@mui/material';
+import { Grid } from '../GridCompat';
 import {
   Send as SendIcon,
   AttachFile as AttachIcon,

@@ -17,7 +17,6 @@ import {
   Typography,
   TextField,
   Button,
-  Grid,
   Chip,
   Table,
   TableBody,
@@ -37,6 +36,7 @@ import {
   AccordionSummary,
   AccordionDetails,
 } from '@mui/material';
+import { Grid } from '../GridCompat';
 import {
   Search as SearchIcon,
   TrendingUp as TrendingUpIcon,

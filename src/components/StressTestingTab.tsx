@@ -14,7 +14,6 @@ import {
   Card,
   CardContent,
   Typography,
-  Grid,
   Chip,
   Alert,
   Button,
@@ -33,6 +32,7 @@ import {
   Tooltip,
   IconButton,
 } from '@mui/material';
+import { Grid } from './GridCompat';
 import {
   ExpandMore,
   Warning,
@@ -129,7 +129,7 @@ export const StressTestingTab: React.FC<StressTestingTabProps> = ({
           summary: getStressTestSummary(stressTestResults),
         });
       }
-    } catch (err) {
+    } catch (err: unknown) {
       const errorMessage = err instanceof Error ? err.message : 'Failed to calculate stress tests';
       setError(errorMessage);
       console.error('Stress test calculation error:', err);
@@ -153,7 +153,7 @@ export const StressTestingTab: React.FC<StressTestingTabProps> = ({
           const stressTestResults = runStressTests(dealState);
           setResults(stressTestResults);
           setError(null);
-        } catch (err) {
+        } catch (err: unknown) {
           setError(err instanceof Error ? err.message : 'Failed to recalculate');
         } finally {
           setIsLoading(false);

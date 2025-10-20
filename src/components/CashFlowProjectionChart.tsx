@@ -13,12 +13,12 @@ import {
   ToggleButtonGroup,
   Card,
   CardContent,
-  Grid,
   Chip,
   Divider,
   useTheme,
   alpha
 } from '@mui/material';
+import { Grid } from './GridCompat';
 import {
   LineChart,
   Line,

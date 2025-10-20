@@ -22,12 +22,12 @@ import {
   MonteCarloResults,
   MonteCarloStatistics,
   RiskMetrics,
-  CashFlowProjectionParams,
   runMonteCarloSimulation,
   MonteCarloConfig,
   exportSimulationResultsToCSV,
   createHistogram
 } from '../utils/monteCarloSimulation';
+import { CashFlowProjectionParams } from '../utils/cashFlowProjections';
 import MonteCarloConfiguration from './MonteCarloConfiguration';
 import MonteCarloVisualization from './MonteCarloVisualization';
 
@@ -221,10 +221,9 @@ export const MonteCarloSimulationTab: React.FC<MonteCarloSimulationTabProps> = (
         cvar99: -0.15, // Expected shortfall at 99%
         sharpeRatio: 1.2,
         sortinoRatio: 1.5,
-        calmarRatio: 0.8,
         maxDrawdown: -0.12,
-        volatility: 0.15,
-        downsideDeviation: 0.08
+        downsideDeviation: 0.08,
+        probabilityOfLoss: 0.15
       };
       
       const results: MonteCarloResults = {

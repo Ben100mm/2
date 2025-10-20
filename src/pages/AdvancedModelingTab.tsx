@@ -439,7 +439,7 @@ const AdvancedModelingTab: React.FC = () => {
       case "Subject To Existing Mortgage":
         const subjectToLoans = dealState.subjectTo?.loans || [];
         const totalBalloonPayment = subjectToLoans.reduce((total, loan) => {
-          return total + (hasBalloonPayment(loan) ? loan.balance : 0);
+          return total + (hasBalloonPayment(loan) ? loan.currentBalance : 0);
         }, 0);
         const maxBalloonDueYears = Math.max(
           ...subjectToLoans.map((loan) => loan.balloonDue || 0),
@@ -452,7 +452,7 @@ const AdvancedModelingTab: React.FC = () => {
           balloonPayment: totalBalloonPayment,
           balloonDueYears: maxBalloonDueYears,
           interestOnly: false, // Subject to loans are typically amortizing
-          totalLoanAmount: dealState.subjectTo?.totalBalance || 0,
+          totalLoanAmount: dealState.subjectTo?.totalLoanBalance || 0,
         };
 
       case "Hybrid":

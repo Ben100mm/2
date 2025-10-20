@@ -566,7 +566,7 @@ const ManageAssistant: React.FC = () => {
                 {assistantData.summaries.map((summary) => (
                   <ListItem 
                     key={summary.id} 
-                    button 
+                    component="button"
                     onClick={() => handleDocumentClick(summary)}
                     sx={{ border: 1, borderColor: 'divider', borderRadius: 1, mb: 1 }}
                   >

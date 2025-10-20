@@ -3,7 +3,6 @@ import {
   Box,
   Paper,
   Typography,
-  Grid,
   Card,
   CardContent,
   CardActions,
@@ -23,6 +22,7 @@ import {
   Tab,
   LinearProgress,
 } from '@mui/material';
+import { Grid } from '../GridCompat';
 import {
   MoreVert as MoreVertIcon,
   Add as AddIcon,
