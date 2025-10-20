@@ -151,9 +151,9 @@ export class CensusAdapter implements DataSourceAdapter {
       }
 
       return data;
-    } catch (error) {
+    } catch (error: unknown) {
       clearTimeout(timeoutId);
-      if (error.name === 'AbortError') {
+      if (error instanceof Error && error.name === 'AbortError') {
         throw new Error('Census API request timed out');
       }
       throw error;

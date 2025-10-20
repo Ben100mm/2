@@ -11,7 +11,6 @@ import {
   FetchOptions,
   DataSource,
   DataSourceError,
-  CountyAssessorData,
 } from './types';
 
 // County Assessor specific data types
@@ -248,9 +247,9 @@ export class CountyAssessorAdapter implements DataSourceAdapter {
       }
 
       return await response.json();
-    } catch (error) {
+    } catch (error: unknown) {
       clearTimeout(timeoutId);
-      if (error.name === 'AbortError') {
+      if (error instanceof Error && error.name === 'AbortError') {
         throw new Error('Property API request timed out');
       }
       throw error;
@@ -283,9 +282,9 @@ export class CountyAssessorAdapter implements DataSourceAdapter {
       }
 
       return await response.json();
-    } catch (error) {
+    } catch (error: unknown) {
       clearTimeout(timeoutId);
-      if (error.name === 'AbortError') {
+      if (error instanceof Error && error.name === 'AbortError') {
         throw new Error('Assessment API request timed out');
       }
       throw error;
@@ -318,9 +317,9 @@ export class CountyAssessorAdapter implements DataSourceAdapter {
       }
 
       return await response.json();
-    } catch (error) {
+    } catch (error: unknown) {
       clearTimeout(timeoutId);
-      if (error.name === 'AbortError') {
+      if (error instanceof Error && error.name === 'AbortError') {
         throw new Error('Sales API request timed out');
       }
       throw error;

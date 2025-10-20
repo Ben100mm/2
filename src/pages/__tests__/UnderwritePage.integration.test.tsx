@@ -70,7 +70,7 @@ const expandAccordion = async (sectionTitle: string) => {
   }
 };
 
-describe.skip("UnderwritePage Integration Tests", () => {
+describe("UnderwritePage Integration Tests", () => {
   // NOTE: Tests are skipped until proper test environment is configured
   // Remove .skip to enable tests once dependencies are mocked
 
