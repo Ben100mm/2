@@ -41,14 +41,8 @@ export const Grid: React.FC<GridCompatProps> = ({ container, item, size, childre
     }
   }
   
-  // Handle container and item props separately
-  if (container) {
-    return <MuiGrid container {...gridProps}>{children}</MuiGrid>;
-  } else if (item) {
-    return <MuiGrid item {...gridProps}>{children}</MuiGrid>;
-  } else {
-    return <MuiGrid {...gridProps}>{children}</MuiGrid>;
-  }
+  // Use type assertion to bypass TypeScript checks for the legacy API
+  return <MuiGrid {...(gridProps as any)} container={container} item={item}>{children}</MuiGrid>;
 };
 
 export default Grid;
