@@ -82,7 +82,7 @@ The frontend will be available at http://localhost:7001
 - ✅ **JWT Tokens** - 24-hour expiration
 - ✅ **Role-Based Access** - User, Admin, Premium roles
 
-## 📊 Core Features
+## Core Features
 
 ### User Management
 - User registration and login
@@ -111,7 +111,7 @@ The frontend will be available at http://localhost:7001
 - **Brand Manager** - Multi-office management
 - **Enterprise** - Large brokerage operations
 
-## 🛠️ Development
+## Development
 
 ### New JWT Backend Development
 ```bash
@@ -145,7 +145,7 @@ pytest
 npm test
 ```
 
-## 🐳 Docker Deployment
+## Docker Deployment
 
 ### Full Stack Deployment
 ```bash
@@ -165,7 +165,7 @@ Copy `backend/env.example` to `backend/.env` and configure:
 - CORS origins
 - Email settings (optional)
 
-## 📚 API Documentation
+## API Documentation
 
 ### New JWT Backend Endpoints
 - `POST /api/auth/register` - User registration
@@ -213,7 +213,7 @@ Copy `backend/env.example` to `backend/.env` and configure:
 └── prisma/               # Database schema
 ```
 
-## 🔧 Configuration
+## Configuration
 
 ### New Backend Environment Variables
 ```env
@@ -230,7 +230,7 @@ REACT_APP_API_URL=http://localhost:8000
 REACT_APP_APPLE_MAPS_JWT_TOKEN=your_jwt_token
 ```
 
-## 📈 Performance & Scalability
+## Performance & Scalability
 
 - **Database:** PostgreSQL with connection pooling
 - **Caching:** Redis for session management
@@ -238,7 +238,7 @@ REACT_APP_APPLE_MAPS_JWT_TOKEN=your_jwt_token
 - **Frontend:** React with code splitting
 - **Security:** Rate limiting and input validation
 
-## 🚀 Production Deployment
+## Production Deployment
 
 ### Backend
 1. Set up PostgreSQL database
@@ -263,11 +263,11 @@ REACT_APP_APPLE_MAPS_JWT_TOKEN=your_jwt_token
 6. Push to the branch: `git push origin feature-name`
 7. Submit a pull request
 
-## 📄 License
+## License
 
 Copyright (c) 2024 Dreamery Software LLC. All rights reserved.
 
-## 🆘 Support
+## Support
 
 For support and questions:
 - Create an issue in the repository
@@ -295,4 +295,4 @@ This is a **PRIVATE, PROPRIETARY REPOSITORY** with restricted access. Unauthoriz
 
 ---
 
-**Built with ❤️ for the real estate industry**
+**Built for the real estate industry**
