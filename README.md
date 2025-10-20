@@ -4,7 +4,7 @@
 
 A comprehensive real estate platform with custom JWT authentication backend and anti-account-sharing measures.
 
-## 🏗️ Architecture
+## Architecture
 
 ### Frontend (React + TypeScript)
 - **React 18.2.0** with TypeScript 4.9.5
@@ -25,7 +25,7 @@ A comprehensive real estate platform with custom JWT authentication backend and 
 - **Prisma ORM** - Database toolkit
 - **PostgreSQL/SQLite** - Database
 
-## 🚀 Quick Start
+## Quick Start
 
 ### Prerequisites
 - Node.js 18+
